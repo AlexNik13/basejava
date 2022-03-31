@@ -13,6 +13,7 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
+        if(get(r.getUuid()) != null || size() >= storage.length) return;
         storage[size()] = r;
     }
 
@@ -28,6 +29,9 @@ public class ArrayStorage {
 
     public void delete(String uuid) {
         Resume resume = get(uuid);
+
+        if(resume == null) return;
+
         int step = 0;
         if (resume != null) {
             for (int i = 0; i < size(); i++) {
