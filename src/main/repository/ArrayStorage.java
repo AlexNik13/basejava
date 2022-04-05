@@ -5,15 +5,25 @@ import main.model.Resume;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
+public class ArrayStorage implements Storage {
     Resume[] storage = new Resume[10000];
 
     public void clear() {
         storage = new Resume[10000];
     }
 
+    @Override
+    public void update(Resume resume) {
+        int size = size();
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(resume.getUuid())) {
+                storage[i] = resume;
+            }
+        }
+    }
+
     public void save(Resume r) {
-        if(get(r.getUuid()) != null || size() >= storage.length) return;
+        if (get(r.getUuid()) != null || size() >= storage.length) return;
         storage[size()] = r;
     }
 
@@ -29,9 +39,7 @@ public class ArrayStorage {
 
     public void delete(String uuid) {
         Resume resume = get(uuid);
-
-        if(resume == null) return;
-
+        if (resume == null) return;
         int step = 0;
         if (resume != null) {
             for (int i = 0; i < size(); i++) {
