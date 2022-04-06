@@ -26,5 +26,20 @@ public class TestSortedArrayStorage {
             System.out.println(resume.toString());
         }
 
+
+        Resume resume = new Resume();
+        resume.setUuid("123");
+
+        System.out.println("size= " + STORAGE.size());
+
+        STORAGE.save(resume);
+
+        System.out.println("size= " + STORAGE.size());
+
+        STORAGE.delete(resume.getUuid());
+
+        System.out.println("size= " + STORAGE.size());
+
+
     }
 }

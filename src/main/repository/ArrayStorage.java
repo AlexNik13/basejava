@@ -12,16 +12,6 @@ public class ArrayStorage implements Storage {
         storage = new Resume[10000];
     }
 
-    @Override
-    public void update(Resume resume) {
-        int size = size();
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(resume.getUuid())) {
-                storage[i] = resume;
-            }
-        }
-    }
-
     public void save(Resume r) {
         if (get(r.getUuid()) != null || size() >= storage.length) return;
         storage[size()] = r;
@@ -47,7 +37,6 @@ public class ArrayStorage implements Storage {
                     step++;
                 }
                 storage[i] = storage[i + step];
-
             }
         }
     }
