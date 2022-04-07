@@ -1,13 +1,11 @@
 package test;
 
 import main.model.Resume;
-import main.repository.ArrayStorage;
+import main.repository.SortedArrayStorage;
+import main.repository.Storage;
 
-/**
- * Test for your main.repository.ArrayStorage implementation
- */
-public class MainTestArrayStorage {
-    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+public class MainTestSortedArrayStorage {
+    static final Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume();
@@ -20,14 +18,6 @@ public class MainTestArrayStorage {
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
         ARRAY_STORAGE.save(r3);
-
-        Resume resume = new Resume("uuid1");
-
-        System.out.println("\nNo update : "  + (resume == ARRAY_STORAGE.get("uuid1")));
-        ARRAY_STORAGE.update(resume);
-        System.out.println("\nAfter update : "  + (resume == ARRAY_STORAGE.get("uuid1")));
-
-
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
