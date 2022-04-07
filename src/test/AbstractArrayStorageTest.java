@@ -1,7 +1,6 @@
 package test;
 
 import main.model.Resume;
-import main.repository.SortedArrayStorage;
 import main.repository.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AbstractArrayStorageTest {
 
@@ -19,9 +18,23 @@ class AbstractArrayStorageTest {
     private final String UUID_2 = "uuid2";
     private final String UUID_3 = "uuid3";
 
+    public AbstractArrayStorageTest(Storage storage) {
+        this.storage = storage;
+    }
+
+    public Storage getStorage() {
+        return storage;
+    }
+
+    @Test
+    void save() {
+        storage.save(new Resume("new"));
+        int result = storage.size();
+        assertEquals(4, result);
+    }
+
     @BeforeEach
     void setUp() {
-        storage = new SortedArrayStorage();
         storage.clear();
         storage.save(new Resume(UUID_1));
         storage.save(new Resume(UUID_2));
@@ -41,13 +54,6 @@ class AbstractArrayStorageTest {
         assertEquals(0, result);
     }
 
-    @Test
-    void save() {
-        storage.save(new Resume("new"));
-        storage.save(new Resume(UUID_3));
-        int result = storage.size();
-        assertEquals(4, result);
-    }
 
     @Test
     void delete() {
@@ -74,7 +80,6 @@ class AbstractArrayStorageTest {
         int index = -1;
         Class[] arg = new Class[1];
         arg[0] = String.class;
-
         try {
             method = storage.getClass().getDeclaredMethod("getIndex", arg);
             method.setAccessible(true);
@@ -87,7 +92,17 @@ class AbstractArrayStorageTest {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-
         assertEquals(0, index);
+    }
+
+    @Test
+    void update() {
+        String uuid = "UUID_5";
+        Resume resume = new Resume(uuid);
+        Resume resume2 = new Resume(uuid);
+        storage.save(resume);
+        storage.update(resume2);
+        Resume resultResume = storage.get(uuid);
+        assertNotSame (resume, resultResume);
     }
 }

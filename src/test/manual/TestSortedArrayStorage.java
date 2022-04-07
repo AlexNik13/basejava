@@ -1,4 +1,4 @@
-package test;
+package test.manual;
 
 import main.model.Resume;
 import main.repository.AbstractArrayStorage;
@@ -26,19 +26,18 @@ public class TestSortedArrayStorage {
             System.out.println(resume.toString());
         }
 
-
         Resume resume = new Resume();
         resume.setUuid("123");
+        String strSize = "size= ";
 
-        System.out.println("size= " + STORAGE.size());
+        System.out.println(strSize + STORAGE.size());
 
         STORAGE.save(resume);
-
-        System.out.println("size= " + STORAGE.size());
+        STORAGE.save(resume);
+        System.out.println(strSize + STORAGE.size());
 
         STORAGE.delete(resume.getUuid());
-
-        System.out.println("size= " + STORAGE.size());
+        System.out.println(strSize + STORAGE.size());
 
 
     }
