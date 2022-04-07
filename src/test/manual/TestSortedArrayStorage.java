@@ -38,7 +38,5 @@ public class TestSortedArrayStorage {
 
         STORAGE.delete(resume.getUuid());
         System.out.println(strSize + STORAGE.size());
-
-
     }
 }
