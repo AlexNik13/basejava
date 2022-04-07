@@ -10,6 +10,13 @@ public class Resume implements Comparable<Resume> {
     // Unique identifier
     private String uuid;
 
+    public Resume() {
+    }
+
+    public Resume(String uuid) {
+        this.uuid = uuid;
+    }
+
     public String getUuid() {
         return uuid;
     }
