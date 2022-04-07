@@ -2,6 +2,8 @@ package main.repository;
 
 import main.model.Resume;
 
+import java.util.Arrays;
+
 /**
  * Array based storage for Resumes
  */
@@ -13,7 +15,7 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        if(get(r.getUuid()) != null || size() >= storage.length) return;
+        if (get(r.getUuid()) != null || size() >= storage.length) return;
         storage[size()] = r;
     }
 
@@ -30,7 +32,7 @@ public class ArrayStorage {
     public void delete(String uuid) {
         Resume resume = get(uuid);
 
-        if(resume == null) return;
+        if (resume == null) return;
 
         int step = 0;
         if (resume != null) {
@@ -39,7 +41,6 @@ public class ArrayStorage {
                     step++;
                 }
                 storage[i] = storage[i + step];
-
             }
         }
     }
@@ -53,7 +54,8 @@ public class ArrayStorage {
         for (int i = 0; i < size; i++) {
             newStorage[i] = storage[i];
         }
-        return newStorage;
+
+        return Arrays.copyOfRange(storage, 0 , size());
     }
 
     public int size() {
