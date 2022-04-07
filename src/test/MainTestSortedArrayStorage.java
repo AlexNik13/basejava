@@ -1,13 +1,11 @@
 package test;
 
 import main.model.Resume;
-import main.repository.ArrayStorage;
+import main.repository.SortedArrayStorage;
+import main.repository.Storage;
 
-/**
- * Test for your main.repository.ArrayStorage implementation
- */
-public class MainTestArrayStorage {
-    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+public class MainTestSortedArrayStorage {
+    static final Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume();
