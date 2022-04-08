@@ -1,5 +1,6 @@
 package test;
 
+import main.exception.NotExistStorageException;
 import main.model.Resume;
 import main.repository.Storage;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,6 +71,9 @@ class AbstractArrayStorageTest {
 
     @Test
     void get() {
+        Exception exception = assertThrows(NotExistStorageException.class, () -> {
+            storage.get("Not exist");
+        });
         Resume resume = storage.get(UUID_3);
         assertEquals(UUID_3, resume.getUuid());
     }
@@ -97,12 +101,17 @@ class AbstractArrayStorageTest {
 
     @Test
     void update() {
+        Exception exception = assertThrows(NotExistStorageException.class, () -> {
+            Resume resume = new Resume("Update");
+            storage.update(resume);
+        });
+
         String uuid = "UUID_5";
         Resume resume = new Resume(uuid);
         Resume resume2 = new Resume(uuid);
         storage.save(resume);
         storage.update(resume2);
         Resume resultResume = storage.get(uuid);
-        assertNotSame (resume, resultResume);
+        assertNotSame(resume, resultResume);
     }
 }

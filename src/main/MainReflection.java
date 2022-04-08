@@ -8,14 +8,13 @@ import java.lang.reflect.Method;
 public class MainReflection {
 
     public static void main(String[] args) {
-        Resume resume = new Resume();
+        Resume resume = new Resume("First field");
         String uuidField = "";
         String uuidMethod = "";
 
-
-        Field field = null;
         try {
-            field = resume.getClass().getDeclaredField("uuid");
+            Field field = resume.getClass().getDeclaredField("uuid");
+            System.out.println("Old field: " + resume.getUuid());
             field.setAccessible(true);
             field.set(resume, "uuid new");
             uuidField = (String) field.get(resume);
@@ -23,7 +22,6 @@ public class MainReflection {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         Method method = null;
         try {
@@ -33,7 +31,7 @@ public class MainReflection {
             e.printStackTrace();
 
         }
-
+        System.out.println("New field: " + resume.getUuid());
         System.out.println("field uuid: " + uuidField);
         System.out.println("toString: " + uuidMethod);
     }
