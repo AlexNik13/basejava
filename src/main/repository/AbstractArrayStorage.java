@@ -58,6 +58,7 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
+    @Override
     public Resume get(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
