@@ -1,4 +1,4 @@
-package main.repository;
+package main.repository.base;
 
 import main.model.Resume;
 

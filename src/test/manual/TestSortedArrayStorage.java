@@ -1,7 +1,7 @@
 package test.manual;
 
 import main.model.Resume;
-import main.repository.AbstractArrayStorage;
+import main.repository.base.AbstractArrayStorage;
 import main.repository.SortedArrayStorage;
 
 import java.util.Random;

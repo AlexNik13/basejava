@@ -3,6 +3,7 @@ package main.repository;
 import main.exception.ExistStorageException;
 import main.exception.StorageException;
 import main.model.Resume;
+import main.repository.base.AbstractArrayStorage;
 
 import java.util.Arrays;
 

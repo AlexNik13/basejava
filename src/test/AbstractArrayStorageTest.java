@@ -2,7 +2,7 @@ package test;
 
 import main.exception.NotExistStorageException;
 import main.model.Resume;
-import main.repository.Storage;
+import main.repository.base.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

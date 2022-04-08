@@ -1,5 +1,7 @@
 package main.repository;
 
+import main.repository.base.AbstractArrayStorage;
+
 /**
  * Array based storage for Resumes
  */
