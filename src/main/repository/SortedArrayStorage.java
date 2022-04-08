@@ -3,7 +3,6 @@ package main.repository;
 import main.exception.ExistStorageException;
 import main.exception.StorageException;
 import main.model.Resume;
-import main.repository.base.AbstractArrayStorage;
 
 import java.util.Arrays;
 
@@ -19,7 +18,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             size++;
             add(resume, Math.abs(index + 1));
         } else {
-            throw new ExistStorageException("Storage is full");
+            throw new ExistStorageException(resume.getUuid());
         }
     }
 

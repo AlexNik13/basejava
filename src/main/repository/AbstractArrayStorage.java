@@ -1,4 +1,4 @@
-package main.repository.base;
+package main.repository;
 
 import main.exception.NotExistStorageException;
 import main.exception.StorageException;
@@ -6,7 +6,7 @@ import main.model.Resume;
 
 import java.util.Arrays;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 1000;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -66,4 +66,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
         return storage[index];
     }
+
+    protected abstract int getIndex(String uuid);
 }

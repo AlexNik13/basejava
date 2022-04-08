@@ -1,33 +1,29 @@
-package main.repository.list;
+package main.repository;
 
 import main.exception.NotExistStorageException;
 import main.model.Resume;
-import main.repository.base.AbstractStorage;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MapStorage extends AbstractStorage {
+public class ListStorage implements Storage {
 
-    private Map<Integer, Resume> storage = new HashMap<>();
-    int size = 0;
+    private List<Resume> storage = new ArrayList<>();
 
     @Override
     public void clear() {
         storage.clear();
-        size = 0;
     }
 
     @Override
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
-        storage.put(index, resume);
+        storage.set(index, resume);
     }
 
     @Override
     public void save(Resume resume) {
-        storage.put((Integer) size, resume);
-        size++;
+        storage.add(resume);
     }
 
     @Override
@@ -40,22 +36,20 @@ public class MapStorage extends AbstractStorage {
     public void delete(String uuid) {
         int index = getIndex(uuid);
         storage.remove(index);
-        size--;
     }
 
     @Override
     public Resume[] getAll() {
-        return new Resume[0];
+        return storage.toArray(Resume[]::new);
     }
 
     @Override
     public int size() {
-        return size;
+        return storage.size();
     }
 
-    @Override
-    protected int getIndex(String uuid) {
-        for (int i = 0; i < size; i++) {
+    private int getIndex(String uuid) {
+        for (int i = 0; i < storage.size(); i++) {
             if (storage.get(i).getUuid().equals(uuid)) {
                 return i;
             }

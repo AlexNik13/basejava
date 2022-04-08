@@ -2,7 +2,7 @@ package test.manual;
 
 import main.model.Resume;
 import main.repository.SortedArrayStorage;
-import main.repository.base.Storage;
+import main.repository.Storage;
 
 public class MainTestSortedArrayStorage {
     static final Storage ARRAY_STORAGE = new SortedArrayStorage();

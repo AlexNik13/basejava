@@ -2,7 +2,7 @@ package test;
 
 import main.exception.NotExistStorageException;
 import main.model.Resume;
-import main.repository.base.Storage;
+import main.repository.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AbstractArrayStorageTest {
+class StorageTest {
 
     private Storage storage;
 
@@ -19,19 +19,12 @@ class AbstractArrayStorageTest {
     private final String UUID_2 = "uuid2";
     private final String UUID_3 = "uuid3";
 
-    public AbstractArrayStorageTest(Storage storage) {
+    public StorageTest(Storage storage) {
         this.storage = storage;
     }
 
     public Storage getStorage() {
         return storage;
-    }
-
-    @Test
-    void save() {
-        storage.save(new Resume("new"));
-        int result = storage.size();
-        assertEquals(4, result);
     }
 
     @BeforeEach
@@ -40,6 +33,13 @@ class AbstractArrayStorageTest {
         storage.save(new Resume(UUID_1));
         storage.save(new Resume(UUID_2));
         storage.save(new Resume(UUID_3));
+    }
+
+    @Test
+    void save() {
+        storage.save(new Resume("new"));
+        int result = storage.size();
+        assertEquals(4, result);
     }
 
     @Test
@@ -58,7 +58,7 @@ class AbstractArrayStorageTest {
 
     @Test
     void delete() {
-        Exception exception = assertThrows(NotExistStorageException.class, () -> {
+        assertThrows(NotExistStorageException.class, () -> {
             storage.delete("Not exist");
         });
 
@@ -75,7 +75,7 @@ class AbstractArrayStorageTest {
 
     @Test
     void get() {
-        Exception exception = assertThrows(NotExistStorageException.class, () -> {
+        assertThrows(NotExistStorageException.class, () -> {
             storage.get("Not exist");
         });
         Resume resume = storage.get(UUID_3);
@@ -93,11 +93,7 @@ class AbstractArrayStorageTest {
             method.setAccessible(true);
             index = (int) method.invoke(storage, UUID_1);
             method.setAccessible(false);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
         assertEquals(0, index);
@@ -105,7 +101,7 @@ class AbstractArrayStorageTest {
 
     @Test
     void update() {
-        Exception exception = assertThrows(NotExistStorageException.class, () -> {
+        assertThrows(NotExistStorageException.class, () -> {
             Resume resume = new Resume("Update");
             storage.update(resume);
         });
