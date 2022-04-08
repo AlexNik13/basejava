@@ -4,16 +4,13 @@ import main.exception.NotExistStorageException;
 import main.model.Resume;
 import main.repository.base.AbstractStorage;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-public class ListStorage extends AbstractStorage {
+public class MapStorage extends AbstractStorage {
 
-
-    private List<Resume> storage = new ArrayList<>();
-
-    private int size = 0;
-
+    private Map<Integer, Resume> storage = new HashMap<>();
+    int size = 0;
 
     @Override
     public void clear() {
@@ -24,12 +21,12 @@ public class ListStorage extends AbstractStorage {
     @Override
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
-        storage.set(index, resume);
+        storage.put(index, resume);
     }
 
     @Override
     public void save(Resume resume) {
-        storage.add(resume);
+        storage.put((Integer) size, resume);
         size++;
     }
 
@@ -48,7 +45,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public Resume[] getAll() {
-        return storage.toArray(Resume[]::new);
+        return new Resume[0];
     }
 
     @Override
