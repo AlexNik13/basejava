@@ -58,6 +58,10 @@ class AbstractArrayStorageTest {
 
     @Test
     void delete() {
+        Exception exception = assertThrows(NotExistStorageException.class, () -> {
+            storage.delete("Not exist");
+        });
+
         storage.delete(UUID_1);
         int result = storage.size();
         assertEquals(2, result);

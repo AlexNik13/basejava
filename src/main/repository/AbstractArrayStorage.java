@@ -46,7 +46,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
-            System.out.println("Resume " + uuid + " not exist");
+            throw new NotExistStorageException(uuid);
         } else {
             System.arraycopy(storage, index + 1, storage, index, size - index - 1);
             size--;
@@ -58,6 +58,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
+    @Override
     public Resume get(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
