@@ -28,7 +28,7 @@ public class MapStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
-        if (storage.containsKey(resume.getUuid())) {
+        if(isExist(resume)){
             throw new ExistStorageException(resume.getUuid());
         }
         storage.put(resume.getUuid(), resume);
@@ -52,11 +52,16 @@ public class MapStorage implements Storage {
 
     @Override
     public List<Resume> getAll() {
-        return new ArrayList(storage.values());
+        return new ArrayList<>(storage.values());
     }
 
     @Override
     public int size() {
         return storage.size();
+    }
+
+    @Override
+    public boolean isExist(Resume resume) {
+        return storage.containsKey(resume.getUuid());
     }
 }

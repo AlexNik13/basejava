@@ -1,5 +1,6 @@
 package main.repository;
 
+import main.exception.ExistStorageException;
 import main.exception.NotExistStorageException;
 import main.model.Resume;
 
@@ -23,6 +24,9 @@ public class ListStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
+        if(isExist(resume)){
+            throw new ExistStorageException(resume.getUuid());
+        }
         storage.add(resume);
     }
 
@@ -46,6 +50,11 @@ public class ListStorage implements Storage {
     @Override
     public int size() {
         return storage.size();
+    }
+
+    @Override
+    public boolean isExist(Resume resume) {
+        return storage.contains(resume);
     }
 
     private int getIndex(String uuid) {

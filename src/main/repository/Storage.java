@@ -19,4 +19,6 @@ public interface Storage {
     List<Resume> getAll();
 
     int size();
+
+    boolean isExist(Resume resume);
 }

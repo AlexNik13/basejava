@@ -1,5 +1,6 @@
 package main.repository;
 
+import main.exception.ExistStorageException;
 import main.exception.NotExistStorageException;
 import main.exception.StorageException;
 import main.model.Resume;
@@ -36,6 +37,9 @@ public abstract class AbstractArrayStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
+        if(isExist(resume)){
+            throw new ExistStorageException(resume.getUuid());
+        }
         if (size() >= STORAGE_LIMIT) {
             throw new StorageException("Storage is full, " + resume.getUuid() + " not added.");
         }
@@ -66,6 +70,13 @@ public abstract class AbstractArrayStorage implements Storage {
             throw new NotExistStorageException(uuid);
         }
         return storage[index];
+    }
+
+    public boolean isExist(Resume resume){
+        for (Resume r : storage) {
+         if(r.equals(resume)) return true;
+        }
+        return false;
     }
 
     protected abstract int getIndex(String uuid);

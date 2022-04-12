@@ -1,5 +1,6 @@
 package test;
 
+import main.exception.ExistStorageException;
 import main.exception.NotExistStorageException;
 import main.model.Resume;
 import main.repository.Storage;
@@ -38,7 +39,10 @@ class StorageTest {
 
     @Test
     void save() {
-        storage.save(new Resume("new"));
+        assertThrows(ExistStorageException.class, () -> {
+            getStorage().save(new Resume("new"));
+            getStorage().save(new Resume("new"));
+        });
         int result = storage.size();
         assertEquals(4, result);
     }
