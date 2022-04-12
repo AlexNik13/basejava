@@ -3,12 +3,12 @@ package test;
 import main.exception.ExistStorageException;
 import main.model.Resume;
 import main.repository.SortedArrayStorage;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class SortedArrayStorageTest extends AbstractArrayStorageTest {
+public class SortedArrayStorageTest extends AbstractArrayStorageTest {
 
     public SortedArrayStorageTest() {
         super(new SortedArrayStorage());
@@ -16,7 +16,7 @@ class SortedArrayStorageTest extends AbstractArrayStorageTest {
 
     @Override
     @Test
-    void save() {
+    public void save() {
         assertThrows(ExistStorageException.class, () -> {
             getStorage().save(new Resume("new"));
             getStorage().save(new Resume("new"));
