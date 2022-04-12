@@ -4,6 +4,7 @@ import main.model.Resume;
 import main.repository.AbstractArrayStorage;
 import main.repository.SortedArrayStorage;
 
+import java.util.List;
 import java.util.Random;
 
 public class TestSortedArrayStorage {
@@ -20,14 +21,14 @@ public class TestSortedArrayStorage {
             STORAGE.save(resume);
         }
 
-        Resume[] resumes = STORAGE.getAll();
+        List<Resume> resumes = STORAGE.getAll();
 
         for (Resume resume : resumes) {
             System.out.println(resume.toString());
         }
 
         Resume resume = new Resume();
-        resume.setUuid("123");
+        resume.setUuid("qa123");
         String strSize = "size= ";
 
         System.out.println(strSize + STORAGE.size());

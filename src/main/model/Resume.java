@@ -62,8 +62,8 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int compareTo(Resume resume) {
-        if (resume.toString().equals(uuid)) return 0;
-        int comp = resume.toString().compareTo(uuid);
+        if (resume.getUuid().equals(uuid)) return 0;
+        int comp = resume.getUuid().compareTo(uuid);
         return comp > 0 ? -1 : 1;
     }
 }

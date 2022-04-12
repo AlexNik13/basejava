@@ -5,6 +5,7 @@ import main.exception.StorageException;
 import main.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 1000;
@@ -54,8 +55,8 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
+    public List<Resume> getAll() {
+        return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
     }
 
     @Override

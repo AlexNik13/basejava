@@ -4,7 +4,9 @@ import main.exception.ExistStorageException;
 import main.exception.NotExistStorageException;
 import main.model.Resume;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapStorage implements Storage {
@@ -49,9 +51,8 @@ public class MapStorage implements Storage {
     }
 
     @Override
-    public Resume[] getAll() {
-        Resume[] resumes = storage.values().toArray(Resume[]::new);
-        return resumes;
+    public List<Resume> getAll() {
+        return new ArrayList(storage.values());
     }
 
     @Override

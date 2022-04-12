@@ -39,8 +39,8 @@ public class ListStorage implements Storage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return storage.toArray(Resume[]::new);
+    public List<Resume> getAll() {
+        return storage;
     }
 
     @Override
