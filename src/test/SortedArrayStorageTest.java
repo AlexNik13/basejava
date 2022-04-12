@@ -8,12 +8,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class SortedArrayStorageTest extends StorageTest {
+class SortedArrayStorageTest extends AbstractArrayStorageTest {
 
     public SortedArrayStorageTest() {
         super(new SortedArrayStorage());
     }
 
+    @Override
     @Test
     void save() {
         assertThrows(ExistStorageException.class, () -> {
