@@ -43,7 +43,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public void doDelete(Object index) {
+    protected void doDelete(Object index) {
         System.arraycopy(storage, (int) index + 1, storage, (int) index, size - (int) index - 1);
         size--;
     }

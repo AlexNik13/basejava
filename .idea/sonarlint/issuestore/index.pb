@@ -1,6 +1,4 @@
 
-M
-src/test/ListStorageTest.java,0/c/0cac2a807329915c6531f1111b90617206a51414
 J
 src/main/model/Resume.java,2/a/2a1fda79df4aefeb80bb9debb3dc3a0c94b450a1
 Y

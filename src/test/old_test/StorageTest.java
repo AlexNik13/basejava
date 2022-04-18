@@ -1,4 +1,4 @@
-package test;
+package test.old_test;
 
 import main.exception.NotExistStorageException;
 import main.model.Resume;
