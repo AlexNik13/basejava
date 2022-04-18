@@ -4,7 +4,10 @@ import main.model.Resume;
 import main.repository.SortedArrayStorage;
 import main.repository.abstractClass.AbstractArrayStorage;
 
+import java.util.List;
 import java.util.Random;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestSortedArrayStorage {
 
@@ -20,7 +23,7 @@ public class TestSortedArrayStorage {
             STORAGE.save(resume);
         }
 
-        Resume[] resumes = STORAGE.getAll();
+        List<Resume> resumes = STORAGE.getAll();
 
         for (Resume resume : resumes) {
             System.out.println(resume.toString());

@@ -3,8 +3,8 @@ package test;
 import main.exception.NotExistStorageException;
 import main.model.Resume;
 import main.repository.MapStorage;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MapStorageTest {
+public class MapStorageTest {
 
     private MapStorage storage = new MapStorage();
 
@@ -20,8 +20,8 @@ class MapStorageTest {
     private final String UUID_2 = "uuid2";
     private final String UUID_3 = "uuid3";
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         storage.clear();
         storage.save(new Resume(UUID_1));
         storage.save(new Resume(UUID_2));
@@ -29,26 +29,26 @@ class MapStorageTest {
     }
 
     @Test
-    void size() {
+    public void size() {
         int result = storage.size();
         assertEquals(3, result);
     }
 
     @Test
-    void clear() {
+    public void clear() {
         storage.clear();
         int result = storage.size();
         assertEquals(0, result);
     }
 
     @Test
-    void getAll() {
+    public void getAll() {
         List<Resume> resumes = storage.getAll();
         assertEquals(3, resumes.size());
     }
 
     @Test
-    void update() {
+    public void update() {
         assertThrows(NotExistStorageException.class, () -> {
             Resume resume = new Resume("Update");
             storage.update(resume);
@@ -64,14 +64,14 @@ class MapStorageTest {
     }
 
     @Test
-    void save() {
+    public void save() {
         storage.save(new Resume("new"));
         int result = storage.size();
         assertEquals(4, result);
     }
 
     @Test
-    void delete() {
+    public void delete() {
         assertThrows(NotExistStorageException.class, () -> {
             storage.delete("Not exist");
         });
@@ -82,7 +82,7 @@ class MapStorageTest {
     }
 
     @Test
-    void get() {
+    public void get() {
         assertThrows(NotExistStorageException.class, () -> {
             storage.get("Not exist");
         });
@@ -91,7 +91,7 @@ class MapStorageTest {
     }
 
     @Test
-    void getIndex() {
+    public void getIndex() {
         Method method;
         String searchKey = null;
         Class[] arg = new Class[1];
