@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,8 +43,8 @@ class MapHashStorageTest {
 
     @Test
     void getAll() {
-        Resume[] resumes = storage.getAll();
-        assertEquals(3, resumes.length);
+        List<Resume> resumes = storage.getAll();
+        assertEquals(3, resumes.size());
     }
 
     @Test

@@ -3,12 +3,12 @@ package test;
 import main.exception.NotExistStorageException;
 import main.model.Resume;
 import main.repository.ListStorage;
-import main.repository.SortedArrayStorage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -43,8 +43,8 @@ class ListStorageTest {
 
     @Test
     void getAll() {
-        Resume[] resumes = storage.getAll();
-        assertEquals(3, resumes.length);
+        List<Resume> resumes = storage.getAll();
+        assertEquals(3, resumes.size());
     }
 
     @Test

@@ -3,7 +3,9 @@ package main.repository;
 import main.model.Resume;
 import main.repository.abstractClass.AbstractStorage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapHashStorage extends AbstractStorage {
@@ -52,8 +54,8 @@ public class MapHashStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return storage.values().toArray(Resume[]::new);
+    public List<Resume> getAll() {
+        return new ArrayList(storage.values());
     }
 
     @Override
