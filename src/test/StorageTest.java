@@ -2,7 +2,7 @@ package test;
 
 import main.exception.NotExistStorageException;
 import main.model.Resume;
-import main.repository.Storage;
+import main.repository.abstractClass.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -55,7 +55,6 @@ class StorageTest {
         assertEquals(0, result);
     }
 
-
     @Test
     void delete() {
         assertThrows(NotExistStorageException.class, () -> {
@@ -85,11 +84,11 @@ class StorageTest {
     @Test
     void getIndex() {
         Method method;
-        int index = -1;
+        Integer index = null;
         Class[] arg = new Class[1];
         arg[0] = String.class;
         try {
-            method = storage.getClass().getDeclaredMethod("getIndex", arg);
+            method = storage.getClass().getDeclaredMethod("getSearchKey", arg);
             method.setAccessible(true);
             index = (int) method.invoke(storage, UUID_1);
             method.setAccessible(false);

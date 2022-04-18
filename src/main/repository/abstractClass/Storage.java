@@ -1,4 +1,4 @@
-package main.repository;
+package main.repository.abstractClass;
 
 import main.model.Resume;
 

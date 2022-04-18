@@ -1,15 +1,44 @@
 package main.repository;
 
-import main.exception.ExistStorageException;
-import main.exception.NotExistStorageException;
 import main.model.Resume;
+import main.repository.abstractClass.AbstractStorage;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapStorage implements Storage {
+public class MapStorage extends AbstractStorage {
 
     private Map<String, Resume> storage = new HashMap<>();
+
+    @Override
+    protected Object getSearchKey(String uuid) {
+        return uuid;
+    }
+
+    @Override
+    protected void doUpdate(Resume r, Object searchKey) {
+        storage.put(r.getUuid(), r);
+    }
+
+    @Override
+    protected boolean isExist(Object searchKey) {
+        return storage.get((String) searchKey) != null;
+    }
+
+    @Override
+    protected void doSave(Resume r, Object searchKey) {
+        storage.put(r.getUuid(), r);
+    }
+
+    @Override
+    protected Resume doGet(Object searchKey) {
+        return storage.get((String) searchKey);
+    }
+
+    @Override
+    protected void doDelete(Object searchKey) {
+        storage.remove((String) searchKey);
+    }
 
     @Override
     public void clear() {
@@ -17,41 +46,8 @@ public class MapStorage implements Storage {
     }
 
     @Override
-    public void update(Resume resume) {
-        if (!storage.containsKey(resume.getUuid())) {
-            throw new NotExistStorageException(resume.getUuid());
-        }
-        storage.put(resume.getUuid(), resume);
-    }
-
-    @Override
-    public void save(Resume resume) {
-        if (storage.containsKey(resume.getUuid())) {
-            throw new ExistStorageException(resume.getUuid());
-        }
-        storage.put(resume.getUuid(), resume);
-    }
-
-    @Override
-    public Resume get(String uuid) {
-        if (!storage.containsKey(uuid)) {
-            throw new NotExistStorageException(uuid);
-        }
-        return storage.get(uuid);
-    }
-
-    @Override
-    public void delete(String uuid) {
-        if (!storage.containsKey(uuid)) {
-            throw new NotExistStorageException(uuid);
-        }
-        storage.remove(uuid);
-    }
-
-    @Override
     public Resume[] getAll() {
-        Resume[] resumes = storage.values().toArray(Resume[]::new);
-        return resumes;
+        return storage.values().toArray(Resume[]::new);
     }
 
     @Override

@@ -1,41 +1,53 @@
 package main.repository;
 
-import main.exception.NotExistStorageException;
 import main.model.Resume;
+import main.repository.abstractClass.AbstractStorage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListStorage implements Storage {
+public class ListStorage extends AbstractStorage {
 
     private List<Resume> storage = new ArrayList<>();
 
     @Override
+    protected Object getSearchKey(String uuid) {
+        for (int i = 0; i < storage.size(); i++) {
+            if (storage.get(i).getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected void doUpdate(Resume r, Object searchKey) {
+        storage.set((int) searchKey, r);
+    }
+
+    @Override
+    protected boolean isExist(Object searchKey) {
+        return searchKey != null;
+    }
+
+    @Override
+    protected void doSave(Resume r, Object searchKey) {
+        storage.add(r);
+    }
+
+    @Override
+    protected Resume doGet(Object searchKey) {
+        return storage.get((int) searchKey);
+    }
+
+    @Override
+    protected void doDelete(Object searchKey) {
+        storage.remove((int) searchKey);
+    }
+
+    @Override
     public void clear() {
         storage.clear();
-    }
-
-    @Override
-    public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        storage.set(index, resume);
-    }
-
-    @Override
-    public void save(Resume resume) {
-        storage.add(resume);
-    }
-
-    @Override
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        return storage.get(index);
-    }
-
-    @Override
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-        storage.remove(index);
     }
 
     @Override
@@ -46,14 +58,5 @@ public class ListStorage implements Storage {
     @Override
     public int size() {
         return storage.size();
-    }
-
-    private int getIndex(String uuid) {
-        for (int i = 0; i < storage.size(); i++) {
-            if (storage.get(i).getUuid().equals(uuid)) {
-                return i;
-            }
-        }
-        throw new NotExistStorageException(uuid);
     }
 }
