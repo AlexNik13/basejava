@@ -8,6 +8,7 @@ import main.repository.abstractClass.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -27,6 +28,25 @@ class ArrayStorageTest {
         storage.save(new Resume(UUID_1));
         storage.save(new Resume(UUID_2));
         storage.save(new Resume(UUID_3));
+    }
+
+    @Test
+    void saveOverflow() {
+        int maxSize = 0;
+        try {
+            Field field = storage.getClass().getSuperclass().getDeclaredField("STORAGE_LIMIT");
+            field.setAccessible(true);
+            maxSize = (int) field.get(storage.getClass().getSuperclass());
+            field.setAccessible(false);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        int size = maxSize;
+        assertThrows(StorageException.class, () -> {
+            for (int i = 0; i < size + 1; i++) {
+                storage.save(new Resume("i"));
+            }
+        });
     }
 
     @Test

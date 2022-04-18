@@ -1,11 +1,13 @@
 package test;
 
 import main.exception.NotExistStorageException;
+import main.exception.StorageException;
 import main.model.Resume;
 import main.repository.SortedArrayStorage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -18,6 +20,25 @@ class SortedArrayStorageTest {
     private final String UUID_1 = "uuid1";
     private final String UUID_2 = "uuid2";
     private final String UUID_3 = "uuid3";
+
+    @Test
+    void saveOverflow() {
+        int maxSize = 0;
+        try {
+            Field field = storage.getClass().getSuperclass().getDeclaredField("STORAGE_LIMIT");
+            field.setAccessible(true);
+            maxSize = (int) field.get(storage.getClass().getSuperclass());
+            field.setAccessible(false);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        int size = maxSize;
+        assertThrows(StorageException.class, () -> {
+            for (int i = 0; i < size + 1; i++) {
+                storage.save(new Resume("i"));
+            }
+        });
+    }
 
     @BeforeEach
     void setUp() {
