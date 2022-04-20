@@ -23,6 +23,6 @@ public class SectionWork extends Experience {
     public void print() {
         System.out.println(getStartDate() + " " + getFinishDate() + " " + getTitle());
         System.out.println(getDescription());
-        System.out.println(detail + "\n\n");
+        System.out.println(detail + "\n");
     }
 }

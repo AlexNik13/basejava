@@ -1,6 +1,7 @@
 package main.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ public class Resume implements Comparable<Resume>, Print {
     private String fullName;
 
     private Map<ContactType, Print> contacts = new HashMap<>();
-    private Map<SectionType, Print> sections = new HashMap<>();
+    private Map<SectionType, List<Print>> sections = new HashMap<>();
 
 
     public Resume() {
@@ -32,7 +33,7 @@ public class Resume implements Comparable<Resume>, Print {
         contacts.put(contactType, contact);
     }
 
-    public void addSection(SectionType sectionType, Print section) {
+    public void addSection(SectionType sectionType, List<Print> section) {
         sections.put(sectionType, section);
     }
 
@@ -52,20 +53,20 @@ public class Resume implements Comparable<Resume>, Print {
         this.fullName = fullName;
     }
 
-    public Map<ContactType, Print> getContact() {
+    public Map<ContactType, Print> getContacts() {
         return contacts;
     }
 
-    public void setContact(Map<ContactType, Print> contact) {
-        this.contacts = contact;
+    public void setContacts(Map<ContactType, Print> contacts) {
+        this.contacts = contacts;
     }
 
-    public Map<SectionType, Print> getSection() {
+    public Map<SectionType, List<Print>> getSections() {
         return sections;
     }
 
-    public void setSection(Map<SectionType, Print> section) {
-        this.sections = section;
+    public void setSections(Map<SectionType, List<Print>> sections) {
+        this.sections = sections;
     }
 
     @Override
@@ -101,8 +102,8 @@ public class Resume implements Comparable<Resume>, Print {
         });
 
         sections.forEach((sectionType, print) -> {
-            System.out.println(sectionType.getTitle());
-            print.print();
+            System.out.println("\n" + sectionType.getTitle());
+            print.forEach(Print::print);
         });
     }
 }
