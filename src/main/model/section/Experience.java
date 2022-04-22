@@ -1,15 +1,15 @@
-package main.model;
+package main.model.section;
 
 import java.time.LocalDate;
 
-public abstract class Experience implements Print {
+public class Experience implements Section {
     private LocalDate startDate;
     private LocalDate finishDate;
     private String title;
     private String link;
     private String description;
 
-    protected Experience(LocalDate startDate, LocalDate finishDate, String title, String link, String description) {
+    public Experience(LocalDate startDate, LocalDate finishDate, String title, String link, String description) {
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.title = title;

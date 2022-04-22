@@ -1,7 +1,10 @@
 package test.manual;
 
-import main.model.*;
-import main.mapper.GsonPrintMapper;
+import main.model.AchievementOrQualifications;
+import main.model.Contact;
+import main.model.Resume;
+import main.model.section.*;
+import main.model.type.ContactType;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,62 +15,74 @@ public class resumeContentTest {
     public static void main(String[] args) {
         Resume resume = new Resume("UnNumb", "Petro Piatochkin");
 
-        resume.addContact(ContactType.PHONE, new Contact("+7(921) 855-0482"));
-        resume.addContact(ContactType.EMAIL, new Contact("123qw@adf.asd"));
-        resume.addContact(ContactType.SKYPE, new Contact("skype:grigory.kislin"));
-        resume.addContact(ContactType.GITHUB, new Contact("https://basejava.herokuapp.com/"));
-        resume.addContact(ContactType.STACKOVERFLOW, new Contact("https://stackoverflow.com/users/548473"));
-        resume.addContact(ContactType.HOMEPAGE, new Contact("https://basejava.herokuapp.com/"));
+        resume.addContact(ContactType.PHONE, new Contact(ContactType.PHONE.getTitle(), "+7(921) 855-0482"));
+        resume.addContact(ContactType.EMAIL, new Contact(ContactType.EMAIL.getTitle(), "123qw@adf.asd"));
+        resume.addContact(ContactType.SKYPE, new Contact(ContactType.SKYPE.getTitle(), "skype:grigory.kislin"));
+        resume.addContact(ContactType.GITHUB, new Contact(ContactType.GITHUB.getTitle(), "https://basejava.herokuapp.com/"));
+        resume.addContact(ContactType.STACKOVERFLOW, new Contact(ContactType.STACKOVERFLOW.getTitle(), "https://stackoverflow.com/users/548473"));
+        resume.addContact(ContactType.HOMEPAGE, new Contact(ContactType.HOMEPAGE.getTitle(), "https://basejava.herokuapp.com/"));
 
-        List<Print> achievements = new ArrayList<>();
-        achievements.add(new Section("Организация команды и успешная реализация Java проектов для сторонних заказчиков: приложения автопарк на стеке Spring Cloud/микросервисы, система мониторинга показателей спортсменов на Spring Boot, участие в проекте МЭШ на Play-2, многомодульный Spring Boot + Vaadin проект для комплексных DIY смет"));
-        achievements.add(new Section("Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа."));
-        achievements.add(new Section("Создание JavaEE фреймворка для отказоустойчивого взаимодействия слабо-связанных сервисов (SOA-base архитектура, JAX-WS, JMS, AS Glassfish). Сбор статистики сервисов и информации о состоянии через систему мониторинга Nagios. Реализация онлайн клиента для администрирования и мониторинга системы по JMX (Jython/ Django)."));
-        achievements.add(new Section("Реализация c нуля Rich Internet Application приложения на стеке технологий JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Commet, HTML5, Highstock для алгоритмического трейдинга."));
-        achievements.add(new Section("Налаживание процесса разработки и непрерывной интеграции ERP системы River BPM. Интеграция с 1С, Bonita BPM, CMIS, LDAP. Разработка приложения управления окружением на стеке: Scala/Play/Anorm/JQuery. Разработка SSO аутентификации и авторизации различных ERP модулей, интеграция CIFS/SMB java сервера."));
-        achievements.add(new Section("Реализация двухфакторной аутентификации для онлайн платформы управления проектами Wrike. Интеграция с Twilio, DuoSecurity, Google Authenticator, Jira, Zendesk."));
-        achievements.add(new Section("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 3500 выпускников."));
-
-
-
-        resume.addSection(SectionType.ACHIEVEMENT, achievements);
+        List<String> achievements = new ArrayList<>();
+        achievements.add("Организация команды и успешная реализация Java проектов для сторонних заказчиков: приложения автопарк на стеке Spring Cloud/микросервисы, система мониторинга показателей спортсменов на Spring Boot, участие в проекте МЭШ на Play-2, многомодульный Spring Boot + Vaadin проект для комплексных DIY смет");
+        achievements.add("Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа.");
+        achievements.add("Создание JavaEE фреймворка для отказоустойчивого взаимодействия слабо-связанных сервисов (SOA-base архитектура, JAX-WS, JMS, AS Glassfish). Сбор статистики сервисов и информации о состоянии через систему мониторинга Nagios. Реализация онлайн клиента для администрирования и мониторинга системы по JMX (Jython/ Django).");
+        achievements.add("Реализация c нуля Rich Internet Application приложения на стеке технологий JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Commet, HTML5, Highstock для алгоритмического трейдинга.");
+        achievements.add("Налаживание процесса разработки и непрерывной интеграции ERP системы River BPM. Интеграция с 1С, Bonita BPM, CMIS, LDAP. Разработка приложения управления окружением на стеке: Scala/Play/Anorm/JQuery. Разработка SSO аутентификации и авторизации различных ERP модулей, интеграция CIFS/SMB java сервера.");
+        achievements.add("Реализация двухфакторной аутентификации для онлайн платформы управления проектами Wrike. Интеграция с Twilio, DuoSecurity, Google Authenticator, Jira, Zendesk.");
+        achievements.add("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 3500 выпускников.");
 
 
-        List<Print> personals = new ArrayList<>();
-        personals.add(new Section("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
+        AchievementOrQualifications achievement = new AchievementOrQualifications(SectionType.ACHIEVEMENT.getTitle(), achievements);
 
-        resume.addSection(SectionType.PERSONAL, personals);
+        resume.addSection(SectionType.ACHIEVEMENT, achievement);
 
-        List<Print> work = new ArrayList<>();
+        List<String> qualifications = new ArrayList<>();
+        qualifications.add("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2");
+        qualifications.add("Version control: Subversion, Git, Mercury, ClearCase, Perforce");
+        qualifications.add("DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle, MySQL, SQLite, MS SQL, HSQLDB");
+        qualifications.add("Languages: Java, Scala, Python/Jython/PL-Python, JavaScript, Groovy");
+        qualifications.add("XML/XSD/XSLT, SQL, C/C++, Unix shell scripts");
+        qualifications.add("Java Frameworks: Java 8 (Time API, Streams), Guava, Java Executor, MyBatis, Spring (MVC, Security, Data, Clouds, Boot), JPA (Hibernate, EclipseLink), Guice, GWT(SmartGWT, ExtGWT/GXT), Vaadin, Jasperreports, Apache Commons, Eclipse SWT, JUnit, Selenium (htmlelements).");
+        qualifications.add("Python: Django.");
+        qualifications.add("JavaScript: jQuery, ExtJS, Bootstrap.js, underscore.js");
+        qualifications.add("Scala: SBT, Play2, Specs2, Anorm, Spray, Akka");
+        qualifications.add("Технологии: Servlet, JSP/JSTL, JAX-WS, REST, EJB, RMI, JMS, JavaMail, JAXB, StAX, SAX, DOM, XSLT, MDB, JMX, JDBC, JPA, JNDI, JAAS, SOAP, AJAX, Commet, HTML5, ESB, CMIS, BPMN2, LDAP, OAuth1, OAuth2, JWT.");
+        qualifications.add("Инструменты: Maven + plugin development, Gradle, настройка Ngnix");
+        qualifications.add("администрирование Hudson/Jenkins, Ant + custom task, SoapUI, JPublisher, Flyway, Nagios, iReport, OpenCmis, Bonita, pgBouncer");
+        qualifications.add("Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования");
+        qualifications.add("Родной русский, английский \"upper intermediate\"");
 
-        work.add(new SectionWork(LocalDate.now().minusDays(1), LocalDate.now(), "Java Online Projects", "http://javaops.ru/", "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок."));
-        work.add(new SectionWork(LocalDate.now().minusDays(1), LocalDate.now(), "Wrike", "https://www.wrike.com/", "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
-        work.add(new SectionWork(LocalDate.now().minusDays(1), LocalDate.now(), "Alcatel", "http://www.alcatel.ru/", "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."));
+        AchievementOrQualifications qualification = new AchievementOrQualifications(SectionType.QUALIFICATIONS.getTitle(), qualifications);
 
-        resume.addSection(SectionType.EXPERIENCE, work);
+        resume.addSection(SectionType.QUALIFICATIONS, qualification);
+
+        PositionOrQualities position = new PositionOrQualities("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
+
+        resume.addSection(SectionType.PERSONAL, position);
+
+        List<ExperienceWork> experienceWorks = new ArrayList<>();
+
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), "Java Online Projects", "http://javaops.ru/", "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок."));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), "Wrike", "https://www.wrike.com/", "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), "Alcatel", "http://www.alcatel.ru/", "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."));
+
+        SectionWork sectionWork = new SectionWork(experienceWorks);
+        resume.addSection(SectionType.EXPERIENCE, sectionWork);
 
 
-        List<Print> education = Arrays.asList(
-                new SectionEducation(LocalDate.now().minusDays(1), LocalDate.now(), "Coursera", "https://www.coursera.org/course/progfun", "Functional Programming Principles in Scala' by Martin Odersky"),
-                new SectionEducation(LocalDate.now().minusDays(1), LocalDate.now(), "Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366", "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'"),
-                new SectionEducation(LocalDate.now().minusDays(1), LocalDate.now(), "Siemens AG", "http://www.siemens.ru/", "3 месяца обучения мобильным IN сетям (Берлин)")
+        List<Experience> education = Arrays.asList(
+                new Experience(LocalDate.now().minusDays(1), LocalDate.now(), "Coursera", "https://www.coursera.org/course/progfun", "Functional Programming Principles in Scala' by Martin Odersky"),
+                new Experience(LocalDate.now().minusDays(1), LocalDate.now(), "Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366", "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'"),
+                new Experience(LocalDate.now().minusDays(1), LocalDate.now(), "Siemens AG", "http://www.siemens.ru/", "3 месяца обучения мобильным IN сетям (Берлин)")
         );
 
+        SectionEducation sectionEducation = new SectionEducation(education);
 
-        SectionWork sectionWork =   new SectionWork(LocalDate.now().minusDays(1), LocalDate.now(), "Alcatel", "http://www.alcatel.ru/", "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM).");
-        System.out.println(sectionWork.toString());
+        resume.addSection(SectionType.EDUCATION, sectionEducation);
 
-        System.out.println();
-        System.out.println();
-        String strGson = GsonPrintMapper.toGson(resume);
-        System.out.println(strGson);
 
-        resume.addSection(SectionType.EDUCATION, education);
-
-      //  resume.print();
+        resume.printContactOrSection(ContactType.EMAIL);
     }
-
-
 
 
 }

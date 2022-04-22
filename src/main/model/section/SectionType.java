@@ -1,4 +1,4 @@
-package main.model;
+package main.model.section;
 
 public enum SectionType {
 

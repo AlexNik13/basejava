@@ -1,22 +1,22 @@
 package main.model;
 
-public class Contact implements Print {
-    private String contactName;
+import main.model.section.Section;
 
-    public Contact(String contactName) {
-        this.contactName = contactName;
+public class Contact implements Section {
+
+    private String contactType;
+    private String contact;
+
+    public Contact(String contactType, String contact) {
+        this.contactType = contactType;
+        this.contact = contact;
     }
 
-    public String getContactName() {
-        return contactName;
+    public String getContact() {
+        return contact;
     }
 
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
-    }
-
-    @Override
-    public void print() {
-        System.out.println(contactName);
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 }

@@ -1,4 +1,4 @@
-package main.model;
+package main.model.type;
 
 public enum ContactType {
     PHONE("Тел."),
