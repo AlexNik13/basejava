@@ -1,13 +1,14 @@
 package test.manual;
 
 import main.model.*;
+import main.mapper.GsonPrintMapper;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ResumeContetnTest {
+public class resumeContentTest {
     public static void main(String[] args) {
         Resume resume = new Resume("UnNumb", "Petro Piatochkin");
 
@@ -52,8 +53,21 @@ public class ResumeContetnTest {
                 new SectionEducation(LocalDate.now().minusDays(1), LocalDate.now(), "Siemens AG", "http://www.siemens.ru/", "3 месяца обучения мобильным IN сетям (Берлин)")
         );
 
+
+        SectionWork sectionWork =   new SectionWork(LocalDate.now().minusDays(1), LocalDate.now(), "Alcatel", "http://www.alcatel.ru/", "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM).");
+        System.out.println(sectionWork.toString());
+
+        System.out.println();
+        System.out.println();
+        String strGson = GsonPrintMapper.toGson(resume);
+        System.out.println(strGson);
+
         resume.addSection(SectionType.EDUCATION, education);
 
-        resume.print();
+      //  resume.print();
     }
+
+
+
+
 }

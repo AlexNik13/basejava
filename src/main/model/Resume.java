@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Initial resume class
  */
-public class Resume implements Comparable<Resume>, Print {
+public class Resume implements Comparable<Resume> {
 
     private String uuid;
     private String fullName;
@@ -92,18 +92,5 @@ public class Resume implements Comparable<Resume>, Print {
         if (resume.toString().equals(uuid)) return 0;
         int comp = resume.toString().compareTo(uuid);
         return comp > 0 ? -1 : 1;
-    }
-
-    @Override
-    public void print() {
-        contacts.forEach((contactType, print) -> {
-            System.out.print(contactType.getTitle() + ": \t");
-            print.print();
-        });
-
-        sections.forEach((sectionType, print) -> {
-            System.out.println("\n" + sectionType.getTitle());
-            print.forEach(Print::print);
-        });
     }
 }

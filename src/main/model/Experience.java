@@ -56,4 +56,15 @@ public abstract class Experience implements Print {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Experience{" +
+                "startDate=" + startDate +
+                ", finishDate=" + finishDate +
+                ", title='" + title + '\'' +
+                ", link='" + link + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
