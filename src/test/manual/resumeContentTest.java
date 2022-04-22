@@ -1,10 +1,11 @@
 package test.manual;
 
-import main.model.AchievementOrQualifications;
-import main.model.Contact;
+import main.model.section.AchievementOrQualifications;
+import main.model.section.Contact;
 import main.model.Resume;
 import main.model.section.*;
 import main.model.type.ContactType;
+import main.model.type.SectionType;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,12 +16,12 @@ public class resumeContentTest {
     public static void main(String[] args) {
         Resume resume = new Resume("UnNumb", "Petro Piatochkin");
 
-        resume.addContact(ContactType.PHONE, new Contact(ContactType.PHONE.getTitle(), "+7(921) 855-0482"));
-        resume.addContact(ContactType.EMAIL, new Contact(ContactType.EMAIL.getTitle(), "123qw@adf.asd"));
-        resume.addContact(ContactType.SKYPE, new Contact(ContactType.SKYPE.getTitle(), "skype:grigory.kislin"));
-        resume.addContact(ContactType.GITHUB, new Contact(ContactType.GITHUB.getTitle(), "https://basejava.herokuapp.com/"));
-        resume.addContact(ContactType.STACKOVERFLOW, new Contact(ContactType.STACKOVERFLOW.getTitle(), "https://stackoverflow.com/users/548473"));
-        resume.addContact(ContactType.HOMEPAGE, new Contact(ContactType.HOMEPAGE.getTitle(), "https://basejava.herokuapp.com/"));
+        resume.addSection(ContactType.PHONE, new Contact(ContactType.PHONE.getTitle(), "+7(921) 855-0482"));
+        resume.addSection(ContactType.EMAIL, new Contact(ContactType.EMAIL.getTitle(), "123qw@adf.asd"));
+        resume.addSection(ContactType.SKYPE, new Contact(ContactType.SKYPE.getTitle(), "skype:grigory.kislin"));
+        resume.addSection(ContactType.GITHUB, new Contact(ContactType.GITHUB.getTitle(), "https://basejava.herokuapp.com/"));
+        resume.addSection(ContactType.STACKOVERFLOW, new Contact(ContactType.STACKOVERFLOW.getTitle(), "https://stackoverflow.com/users/548473"));
+        resume.addSection(ContactType.HOMEPAGE, new Contact(ContactType.HOMEPAGE.getTitle(), "https://basejava.herokuapp.com/"));
 
         List<String> achievements = new ArrayList<>();
         achievements.add("Организация команды и успешная реализация Java проектов для сторонних заказчиков: приложения автопарк на стеке Spring Cloud/микросервисы, система мониторинга показателей спортсменов на Spring Boot, участие в проекте МЭШ на Play-2, многомодульный Spring Boot + Vaadin проект для комплексных DIY смет");
@@ -30,7 +31,6 @@ public class resumeContentTest {
         achievements.add("Налаживание процесса разработки и непрерывной интеграции ERP системы River BPM. Интеграция с 1С, Bonita BPM, CMIS, LDAP. Разработка приложения управления окружением на стеке: Scala/Play/Anorm/JQuery. Разработка SSO аутентификации и авторизации различных ERP модулей, интеграция CIFS/SMB java сервера.");
         achievements.add("Реализация двухфакторной аутентификации для онлайн платформы управления проектами Wrike. Интеграция с Twilio, DuoSecurity, Google Authenticator, Jira, Zendesk.");
         achievements.add("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 3500 выпускников.");
-
 
         AchievementOrQualifications achievement = new AchievementOrQualifications(SectionType.ACHIEVEMENT.getTitle(), achievements);
 
@@ -80,8 +80,8 @@ public class resumeContentTest {
 
         resume.addSection(SectionType.EDUCATION, sectionEducation);
 
-
         resume.printContactOrSection(ContactType.EMAIL);
+       // resume.printResume();
     }
 
 

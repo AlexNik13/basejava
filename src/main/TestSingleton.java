@@ -1,6 +1,6 @@
 package main;
 
-import main.model.section.SectionType;
+import main.model.type.SectionType;
 
 public class TestSingleton {
 

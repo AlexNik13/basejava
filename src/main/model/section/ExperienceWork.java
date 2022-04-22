@@ -9,4 +9,12 @@ public class ExperienceWork extends Experience {
         super(startDate, finishDate, title, link, description);
         this.detail = detail;
     }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
 }

@@ -2,18 +2,17 @@ package main.model;
 
 import main.mapper.GsonPrintMapper;
 import main.model.section.Section;
-import main.model.type.ContactType;
-import main.model.section.SectionType;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class Resume implements Comparable<Resume> {
 
     private String uuid;
     private String fullName;
 
-    private Map<ContactType, Section> contacts = new HashMap<>();
-    private Map<SectionType, Section> sections = new HashMap<>();
+    private Map<Enum<?>, Section> sections = new HashMap<>();
 
     public Resume() {
     }
@@ -27,21 +26,17 @@ public class Resume implements Comparable<Resume> {
         this.fullName = fullName;
     }
 
-    public void printContactOrSection(Enum<?> section){
-        Object o = section instanceof ContactType ? contacts.get((ContactType)section) : this.sections.get((SectionType)section);
+    public void printContactOrSection(Enum<?> section) {
+        Object o = sections.get(section);
         System.out.println(GsonPrintMapper.toGson(o));
     }
 
-    public void printResume(){
+    public void printResume() {
         System.out.println(GsonPrintMapper.toGson(this));
     }
 
-    public void addContact(ContactType contactType, Section contact) {
-        contacts.put(contactType, contact);
-    }
-
-    public void addSection(SectionType sectionType, Section section) {
-        sections.put(sectionType, section);
+    public void addSection(Enum<?> enumType, Section section) {
+        sections.put(enumType, section);
     }
 
     public String getUuid() {
@@ -60,19 +55,11 @@ public class Resume implements Comparable<Resume> {
         this.fullName = fullName;
     }
 
-    public Map<ContactType, Section> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(Map<ContactType, Section> contacts) {
-        this.contacts = contacts;
-    }
-
-    public Map<SectionType, Section> getSections() {
+    public Map<Enum<?>, Section> getSections() {
         return sections;
     }
 
-    public void setSections(Map<SectionType, Section> sections) {
+    public void setSections(Map<Enum<?>, Section> sections) {
         this.sections = sections;
     }
 

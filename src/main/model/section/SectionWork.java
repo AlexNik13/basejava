@@ -10,9 +10,16 @@ public class SectionWork implements Section {
         this.experienceExperienceWorks = experienceExperienceWorks;
     }
 
-    public void addExperienceWorks(ExperienceWork experienceWork ){
-        experienceExperienceWorks .add(experienceWork);
+    public void addExperienceWorks(ExperienceWork experienceWork) {
+        experienceExperienceWorks.add(experienceWork);
     }
 
+    public List<ExperienceWork> getExperienceExperienceWorks() {
+        return experienceExperienceWorks;
+    }
+
+    public void setExperienceExperienceWorks(List<ExperienceWork> experienceExperienceWorks) {
+        this.experienceExperienceWorks = experienceExperienceWorks;
+    }
 }
 

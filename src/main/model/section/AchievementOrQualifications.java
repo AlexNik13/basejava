@@ -1,10 +1,8 @@
-package main.model;
-
-import main.model.section.Section;
+package main.model.section;
 
 import java.util.List;
 
-public class AchievementOrQualifications  implements Section {
+public class AchievementOrQualifications implements Section {
 
     private String sectionType;
     private List<String> content;
