@@ -1,10 +1,9 @@
 package main.model;
 
-import main.mapper.GsonPrintMapper;
 import main.model.section.Section;
+import main.model.type.ContactType;
+import main.model.type.SectionType;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class Resume implements Comparable<Resume> {
@@ -12,7 +11,8 @@ public class Resume implements Comparable<Resume> {
     private String uuid;
     private String fullName;
 
-    private Map<Enum<?>, Section> sections = new HashMap<>();
+    private MapSection<ContactType, Section> contact = new MapSection(ContactType.class);
+    private MapSection<SectionType, Section> section = new MapSection(SectionType.class);
 
     public Resume() {
     }
@@ -26,21 +26,24 @@ public class Resume implements Comparable<Resume> {
         this.fullName = fullName;
     }
 
-    public void printContactOrSection(Enum<?> section) {
-        Object o = sections.get(section);
-        System.out.println(GsonPrintMapper.toGson(o));
-    }
-
-    public void printResume() {
-        System.out.println(GsonPrintMapper.toGson(this));
+    public void removeSection(Enum<?> enumType) {
+        if (enumType instanceof ContactType) {
+            this.contact.remove((ContactType) enumType);
+        } else {
+            this.section.remove((SectionType) enumType);
+        }
     }
 
     public void addSection(Enum<?> enumType, Section section) {
-        sections.put(enumType, section);
+        if (enumType instanceof ContactType) {
+            this.contact.put((ContactType) enumType, section);
+        } else {
+            this.section.put((SectionType) enumType, section);
+        }
     }
 
     public String getUuid() {
-        return uuid;
+        return this.uuid;
     }
 
     public void setUuid(String uuid) {
@@ -48,19 +51,27 @@ public class Resume implements Comparable<Resume> {
     }
 
     public String getFullName() {
-        return fullName;
+        return this.fullName;
     }
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
-    public Map<Enum<?>, Section> getSections() {
-        return sections;
+    public MapSection<ContactType, Section> getContact() {
+        return this.contact;
     }
 
-    public void setSections(Map<Enum<?>, Section> sections) {
-        this.sections = sections;
+    public void setContact(MapSection<ContactType, Section> contact) {
+        this.contact = contact;
+    }
+
+    public MapSection<SectionType, Section> getSection() {
+        return this.section;
+    }
+
+    public void setSection(MapSection<SectionType, Section> section) {
+        this.section = section;
     }
 
     @Override
@@ -68,23 +79,23 @@ public class Resume implements Comparable<Resume> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Resume resume = (Resume) o;
-        return Objects.equals(uuid, resume.uuid);
+        return Objects.equals(this.uuid, resume.uuid);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid);
+        return Objects.hash(this.uuid);
     }
 
     @Override
     public String toString() {
-        return uuid;
+        return this.uuid;
     }
 
     @Override
     public int compareTo(Resume resume) {
-        if (resume.toString().equals(uuid)) return 0;
-        int comp = resume.toString().compareTo(uuid);
+        if (resume.toString().equals(this.uuid)) return 0;
+        int comp = resume.toString().compareTo(this.uuid);
         return comp > 0 ? -1 : 1;
     }
 }

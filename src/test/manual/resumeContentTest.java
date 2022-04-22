@@ -1,7 +1,5 @@
 package test.manual;
 
-import main.model.section.AchievementOrQualifications;
-import main.model.section.Contact;
 import main.model.Resume;
 import main.model.section.*;
 import main.model.type.ContactType;
@@ -76,13 +74,6 @@ public class resumeContentTest {
                 new Experience(LocalDate.now().minusDays(1), LocalDate.now(), "Siemens AG", "http://www.siemens.ru/", "3 месяца обучения мобильным IN сетям (Берлин)")
         );
 
-        SectionEducation sectionEducation = new SectionEducation(education);
 
-        resume.addSection(SectionType.EDUCATION, sectionEducation);
-
-        resume.printContactOrSection(ContactType.EMAIL);
-       // resume.printResume();
     }
-
-
 }
