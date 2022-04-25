@@ -1,23 +1,20 @@
 package test.manual;
 
-import main.dto.ResumeCreateDto;
 import main.model.Resume;
 import main.model.section.*;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
-import main.repository.ListStorage;
-import main.service.ResumeService;
-import main.service.ResumeServiceImpl;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class resumeContentTest {
-    public static void main(String[] args) {
-        Resume resume = new Resume("UnNumb", "Petro Piatochkin");
+public class ResumeFull {
 
+    private Resume resume = new Resume();
+
+    {
         resume.addSection(ContactType.PHONE, new Contact(ContactType.PHONE.getTitle(), "+7(921) 855-0482"));
         resume.addSection(ContactType.EMAIL, new Contact(ContactType.EMAIL.getTitle(), "123qw@adf.asd"));
         resume.addSection(ContactType.SKYPE, new Contact(ContactType.SKYPE.getTitle(), "skype:grigory.kislin"));
@@ -77,28 +74,15 @@ public class resumeContentTest {
                 new Experience(LocalDate.now().minusDays(1), LocalDate.now(), "Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366", "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'"),
                 new Experience(LocalDate.now().minusDays(1), LocalDate.now(), "Siemens AG", "http://www.siemens.ru/", "3 месяца обучения мобильным IN сетям (Берлин)")
         );
-
-
-        ResumeService resumeService = new ResumeServiceImpl(new ListStorage());
-
-        ResumeCreateDto resumeCreateDto = new ResumeCreateDto(resume.getFullName(), resume.getContact(), resume.getSection());
-
-        resumeService.createResume(resumeCreateDto);
-
-        resumeService.createResume(new ResumeCreateDto("First"));
-        resumeService.createResume(new ResumeCreateDto("Second"));
-
-        List<Resume> allResume = resumeService.getAllResume();
-
-        Resume resumeByUuid = resumeService.getResumeByUuid(allResume.get(0).getUuid());
-
-        System.out.println("====================");
-        System.out.println("Print resume by uuid");
-        System.out.println("====================");
-        resumeService.printByUuid(allResume.get(0).getUuid());
-        System.out.println("====================");
-        System.out.println("Print all resume");
-        System.out.println("====================");
-        resumeService.printAll();
     }
+
+    public ResumeFull(String uuid, String fullName) {
+        this.resume.setUuid(uuid);
+        this.resume.setFullName(fullName);
+    }
+
+    public Resume getResume() {
+        return resume;
+    }
+
 }

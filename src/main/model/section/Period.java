@@ -1,8 +1,9 @@
 package main.model.section;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Period {
+public class Period implements Serializable {
     private LocalDate startDate;
     private LocalDate finishDate;
 
