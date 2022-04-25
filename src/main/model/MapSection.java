@@ -1,8 +1,9 @@
 package main.model;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 
-public class MapSection<T extends Enum<T>, V> {
+public class MapSection<T extends Enum<T>, V> implements Serializable {
 
     private EnumMap<T, V> storage;
     private Class<T> enumT;

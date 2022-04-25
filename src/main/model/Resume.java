@@ -4,9 +4,10 @@ import main.model.section.Section;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Resume implements Comparable<Resume> {
+public class Resume implements Comparable<Resume>, Serializable {
 
     private String uuid;
     private String fullName;

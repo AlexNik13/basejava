@@ -1,5 +1,7 @@
 package main.model.section;
 
-public interface Section {
+import java.io.Serializable;
+
+public interface Section extends Serializable {
 
 }
