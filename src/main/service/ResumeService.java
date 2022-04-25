@@ -13,4 +13,8 @@ public interface ResumeService {
     Resume getResumeByUuid(String uuid);
 
     void deleteResume(Resume resume);
+
+    void printAll();
+
+    void printByUuid(String uuid);
 }

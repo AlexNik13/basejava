@@ -1,22 +1,23 @@
 package main.service;
 
 import main.dto.ResumeCreateDto;
+import main.mapper.GsonPrintMapper;
 import main.model.Resume;
-import main.repository.ListStorage;
+import main.repository.abstractClass.Storage;
 
 import java.util.List;
 import java.util.UUID;
 
 public class ResumeServiceImpl implements ResumeService {
 
-    private final ListStorage storage;
+    private final Storage storage;
 
-    public ResumeServiceImpl(ListStorage storage) {
+    public ResumeServiceImpl(Storage storage) {
         this.storage = storage;
     }
 
     @Override
-    public void createResume(ResumeCreateDto dto){
+    public void createResume(ResumeCreateDto dto) {
         Resume resume = new Resume();
         resume.setUuid(UUID.randomUUID().toString());
         resume.setFullName(dto.getFullName());
@@ -39,5 +40,15 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     public void deleteResume(Resume resume) {
         storage.delete(resume.getUuid());
+    }
+
+    @Override
+    public void printAll() {
+        System.out.println(GsonPrintMapper.toGson(this.getAllResume()));
+    }
+
+    @Override
+    public void printByUuid(String uuid) {
+        System.out.println(GsonPrintMapper.toGson(this.getResumeByUuid(uuid)));
     }
 }

@@ -1,13 +1,19 @@
 package test.manual;
 
+import main.dto.ResumeCreateDto;
 import main.model.Resume;
 import main.model.section.*;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
+import main.repository.ListStorage;
+import main.service.ResumeService;
+import main.service.ResumeServiceImpl;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class resumeContentTest {
@@ -75,5 +81,27 @@ public class resumeContentTest {
         );
 
 
+
+        ResumeService resumeService = new ResumeServiceImpl(new ListStorage());
+
+        ResumeCreateDto resumeCreateDto = new ResumeCreateDto(resume.getFullName(), resume.getContact(), resume.getSection());
+
+        resumeService.createResume(resumeCreateDto);
+
+        resumeService.createResume(new ResumeCreateDto("First"));
+        resumeService.createResume(new ResumeCreateDto("Second"));
+
+        List<Resume> allResume = resumeService.getAllResume();
+
+        Resume resumeByUuid = resumeService.getResumeByUuid(allResume.get(0).getUuid());
+
+        System.out.println("====================");
+        System.out.println("Print resume by uuid");
+        System.out.println("====================");
+        resumeService.printByUuid(allResume.get(0).getUuid());
+        System.out.println("====================");
+        System.out.println("Print all resume");
+        System.out.println("====================");
+        resumeService.printAll();
     }
 }

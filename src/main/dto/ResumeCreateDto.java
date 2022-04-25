@@ -11,6 +11,10 @@ public class ResumeCreateDto {
     private MapSection<ContactType, Section> contact = new MapSection(ContactType.class);
     private MapSection<SectionType, Section> section = new MapSection(SectionType.class);
 
+    public ResumeCreateDto(String fullName) {
+        this.fullName = fullName;
+    }
+
     public ResumeCreateDto(String fullName, MapSection<ContactType, Section> contact, MapSection<SectionType, Section> section) {
         this.fullName = fullName;
         this.contact = contact;

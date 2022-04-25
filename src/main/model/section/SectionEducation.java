@@ -11,7 +11,6 @@ public class SectionEducation implements Section {
         this.experienceEducations = experienceEducations;
     }
 
-
     public void addExperienceEducation(Experience experienceEducation) {
         experienceEducations.add(experienceEducation);
     }

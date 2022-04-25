@@ -1,36 +1,34 @@
 package main.model.section;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Experience implements Section {
-    private LocalDate startDate;
-    private LocalDate finishDate;
+
+    private List<Period> periods = new ArrayList<>();
     private String title;
     private String link;
     private String description;
 
     public Experience(LocalDate startDate, LocalDate finishDate, String title, String link, String description) {
-        this.startDate = startDate;
-        this.finishDate = finishDate;
+        addPeriods(startDate, finishDate);
         this.title = title;
         this.link = link;
         this.description = description;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public void addPeriods(LocalDate startDate, LocalDate finishDate){
+        Period period = new Period(startDate, finishDate);
+        periods.add(period);
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public List<Period> getPeriods() {
+        return periods;
     }
 
-    public LocalDate getFinishDate() {
-        return finishDate;
-    }
-
-    public void setFinishDate(LocalDate finishDate) {
-        this.finishDate = finishDate;
+    public void setPeriods(List<Period> periods) {
+        this.periods = periods;
     }
 
     public String getTitle() {
@@ -55,16 +53,5 @@ public class Experience implements Section {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return "Experience{" +
-                "startDate=" + startDate +
-                ", finishDate=" + finishDate +
-                ", title='" + title + '\'' +
-                ", link='" + link + '\'' +
-                ", description='" + description + '\'' +
-                '}';
     }
 }
