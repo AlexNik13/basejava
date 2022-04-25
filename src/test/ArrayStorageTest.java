@@ -6,6 +6,7 @@ import main.model.Resume;
 import main.repository.ArrayStorage;
 import org.junit.Before;
 import org.junit.Test;
+import test.manual.ResumeFull;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -22,12 +23,16 @@ public class ArrayStorageTest {
     private final String UUID_2 = "uuid2";
     private final String UUID_3 = "uuid3";
 
+    private final ResumeFull resumeFull_1 = new ResumeFull(UUID_1, "Alex");
+    private final ResumeFull resumeFull_2 = new ResumeFull(UUID_2, "Max");
+    private final ResumeFull resumeFull_3 = new ResumeFull(UUID_3, "Alexsandr");
+
     @Before
     public void setUp() {
         storage.clear();
-        storage.save(new Resume(UUID_1));
-        storage.save(new Resume(UUID_2));
-        storage.save(new Resume(UUID_3));
+        storage.save(resumeFull_1.getResume());
+        storage.save(resumeFull_2.getResume());
+        storage.save(resumeFull_3.getResume());
     }
 
     @Test
