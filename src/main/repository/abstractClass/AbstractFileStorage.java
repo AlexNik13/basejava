@@ -36,11 +36,17 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public int size() {
-        return directory.listFiles().length;
+        int size = 0;
+        for (File file : directory.listFiles()) {
+            if (!file.isDirectory()) {
+                size++;
+            }
+        }
+        return size;
     }
 
     @Override
-    protected File getSearchKey(String uuid) {
+    public File getSearchKey(String uuid) {
         return new File(directory, uuid);
     }
 

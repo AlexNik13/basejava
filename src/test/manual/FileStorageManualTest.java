@@ -33,6 +33,6 @@ public class FileStorageManualTest {
         storage.save(r2);
         storage.save(r3);
 
-        storage.clear();
+       // storage.clear();
     }
 }

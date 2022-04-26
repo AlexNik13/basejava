@@ -6,11 +6,9 @@ import main.repository.FileStorage;
 import main.repository.abstractClass.Storage;
 import org.junit.Before;
 import org.junit.Test;
-import test.manual.ResumeFull;
+import test.manual.ResumeTestData;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,16 +23,16 @@ public class FileStorageTest {
     private final String UUID_2 = "uuid2";
     private final String UUID_3 = "uuid3";
 
-    private final ResumeFull resumeFull_1 = new ResumeFull(UUID_1, "Alex");
-    private final ResumeFull resumeFull_2 = new ResumeFull(UUID_2, "Max");
-    private final ResumeFull resumeFull_3 = new ResumeFull(UUID_3, "Alexsandr");
+    private final ResumeTestData resumeTestData_1 = new ResumeTestData(UUID_1, "Alex");
+    private final ResumeTestData resumeTestData_2 = new ResumeTestData(UUID_2, "Max");
+    private final ResumeTestData resumeTestData_3 = new ResumeTestData(UUID_3, "Alexsandr");
 
     @Before
     public void setUp() {
         storage.clear();
-        storage.save(resumeFull_1.getResume());
-        storage.save(resumeFull_2.getResume());
-        storage.save(resumeFull_3.getResume());
+        storage.save(resumeTestData_1.getResume());
+        storage.save(resumeTestData_2.getResume());
+        storage.save(resumeTestData_3.getResume());
     }
 
     @Test

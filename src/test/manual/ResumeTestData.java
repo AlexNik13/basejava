@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ResumeFull {
+public class ResumeTestData {
 
     private Resume resume = new Resume();
 
@@ -76,7 +76,7 @@ public class ResumeFull {
         );
     }
 
-    public ResumeFull(String uuid, String fullName) {
+    public ResumeTestData(String uuid, String fullName) {
         this.resume.setUuid(uuid);
         this.resume.setFullName(fullName);
     }

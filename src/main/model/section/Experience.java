@@ -18,9 +18,13 @@ public class Experience implements Section {
         this.description = description;
     }
 
-    public void addPeriods(LocalDate startDate, LocalDate finishDate){
+    public void addPeriods(LocalDate startDate, LocalDate finishDate) {
         Period period = new Period(startDate, finishDate);
         periods.add(period);
+    }
+
+    public void addPeriods(Period period) {
+        this.periods.add(period);
     }
 
     public List<Period> getPeriods() {
