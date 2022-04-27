@@ -21,16 +21,16 @@ public class MapHashStorageTest {
     private final String UUID_2 = "uuid2";
     private final String UUID_3 = "uuid3";
 
-    private final ResumeTestData resumeTestData_1 = new ResumeTestData(UUID_1, "Alex");
-    private final ResumeTestData resumeTestData_2 = new ResumeTestData(UUID_2, "Max");
-    private final ResumeTestData resumeTestData_3 = new ResumeTestData(UUID_3, "Alexsandr");
+    private Resume resume1 = ResumeTestData.getResume(UUID_1, "Alex");
+    private Resume resume2 = ResumeTestData.getResume(UUID_2, "Max");
+    private Resume resume3 = ResumeTestData.getResume(UUID_3, "Alexsandr");
 
     @Before
     public void setUp() {
         storage.clear();
-        storage.save(resumeTestData_1.getResume());
-        storage.save(resumeTestData_2.getResume());
-        storage.save(resumeTestData_3.getResume());
+        storage.save(resume1);
+        storage.save(resume2);
+        storage.save(resume3);
     }
 
     @Test

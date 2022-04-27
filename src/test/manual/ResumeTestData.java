@@ -1,20 +1,21 @@
 package test.manual;
 
 import main.model.Resume;
-import main.model.section.*;
+import main.model.experience.ExperienceWork;
+import main.model.section.AchievementOrQualifications;
+import main.model.section.Contact;
+import main.model.section.PositionOrQualities;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ResumeTestData {
 
-    private Resume resume = new Resume();
+    public static Resume getResume(String uuid, String fullName) {
+        Resume resume = new Resume(uuid, fullName);
 
-    {
         resume.addSection(ContactType.PHONE, new Contact(ContactType.PHONE.getTitle(), "+7(921) 855-0482"));
         resume.addSection(ContactType.EMAIL, new Contact(ContactType.EMAIL.getTitle(), "123qw@adf.asd"));
         resume.addSection(ContactType.SKYPE, new Contact(ContactType.SKYPE.getTitle(), "skype:grigory.kislin"));
@@ -61,27 +62,6 @@ public class ResumeTestData {
 
         List<ExperienceWork> experienceWorks = new ArrayList<>();
 
-        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), "Java Online Projects", "http://javaops.ru/", "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок."));
-        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), "Wrike", "https://www.wrike.com/", "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
-        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), "Alcatel", "http://www.alcatel.ru/", "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."));
-
-        SectionWork sectionWork = new SectionWork(experienceWorks);
-        resume.addSection(SectionType.EXPERIENCE, sectionWork);
-
-
-        List<Experience> education = Arrays.asList(
-                new Experience(LocalDate.now().minusDays(1), LocalDate.now(), "Coursera", "https://www.coursera.org/course/progfun", "Functional Programming Principles in Scala' by Martin Odersky"),
-                new Experience(LocalDate.now().minusDays(1), LocalDate.now(), "Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366", "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'"),
-                new Experience(LocalDate.now().minusDays(1), LocalDate.now(), "Siemens AG", "http://www.siemens.ru/", "3 месяца обучения мобильным IN сетям (Берлин)")
-        );
-    }
-
-    public ResumeTestData(String uuid, String fullName) {
-        this.resume.setUuid(uuid);
-        this.resume.setFullName(fullName);
-    }
-
-    public Resume getResume() {
         return resume;
     }
 

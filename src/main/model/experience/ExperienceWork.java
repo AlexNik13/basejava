@@ -1,12 +1,12 @@
-package main.model.section;
+package main.model.experience;
 
 import java.time.LocalDate;
 
 public class ExperienceWork extends Experience {
-    private String detail;
+    protected String detail;
 
-    public ExperienceWork(LocalDate startDate, LocalDate finishDate, String title, String link, String description, String detail) {
-        super(startDate, finishDate, title, link, description);
+    public ExperienceWork(LocalDate startDate, LocalDate finishDate, String description, String organizationId, String detail) {
+        super(startDate, finishDate, description, organizationId);
         this.detail = detail;
     }
 
