@@ -1,7 +1,7 @@
 package test.manual;
 
 import main.model.Resume;
-import main.model.experience.ExperienceWork;
+import main.model.section.experience.ExperienceWork;
 import main.model.section.AchievementOrQualifications;
 import main.model.section.Contact;
 import main.model.section.PositionOrQualities;

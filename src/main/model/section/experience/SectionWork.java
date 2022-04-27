@@ -1,4 +1,4 @@
-package main.model.experience;
+package main.model.section.experience;
 
 import main.model.section.Section;
 

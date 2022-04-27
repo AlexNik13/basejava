@@ -1,4 +1,4 @@
-package main.model.experience;
+package main.model.section.experience;
 
 import java.io.Serializable;
 import java.util.Objects;
