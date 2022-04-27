@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class FileStorageTest {
 
-    private File file = new File("/home/user/UAPP/3/basejava/storage/");
+    private File file = new File("/home/user/UAPP/3/basejava/storage");
 
     private Storage storage = new FileStorage(file);
 

@@ -1,13 +1,15 @@
 package test.manual;
 
 import main.model.Resume;
-import main.model.section.experience.ExperienceWork;
 import main.model.section.AchievementOrQualifications;
 import main.model.section.Contact;
 import main.model.section.PositionOrQualities;
+import main.model.section.experience.SectionEducation;
+import main.model.section.experience.SectionWork;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,11 +58,29 @@ public class ResumeTestData {
 
         resume.addSection(SectionType.QUALIFICATIONS, qualification);
 
-        PositionOrQualities position = new PositionOrQualities("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
+        PositionOrQualities qualities = new PositionOrQualities("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
 
-        resume.addSection(SectionType.PERSONAL, position);
+        resume.addSection(SectionType.QUALIFICATIONS, qualities);
 
-        List<ExperienceWork> experienceWorks = new ArrayList<>();
+        PositionOrQualities position = new PositionOrQualities("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
+
+        resume.addSection(SectionType.PERSONAL, qualities);
+
+        SectionEducation education = new SectionEducation();
+        education.addEducationExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Coursera", "https://www.coursera.org/course/progfun", "Functional Programming Principles in Scala' by Martin Odersky");
+        education.addEducationExperience(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), "Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366", "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'");
+        education.addEducationExperience(LocalDate.now().minusDays(20), LocalDate.now().minusDays(10), "Siemens AG", "http://www.siemens.ru/", "3 месяца обучения мобильным IN сетям (Берлин)");
+
+        resume.addSection(SectionType.EDUCATION, education);
+
+        SectionWork work = new SectionWork();
+        work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Java Online Projects", "http://javaops.ru/", "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок.");
+        work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Alcatel", "http://www.alcatel.ru/", "Дубликат ", "Дубликат");
+        work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Wrike", "https://www.wrike.com/", "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.");
+        work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Alcatel", "http://www.alcatel.ru/", "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM).");
+        work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Alcatel", "http://www.alcatel.ru/", "Дубликат ", "Дубликат");
+
+        resume.addSection(SectionType.EXPERIENCE, work);
 
         return resume;
     }
