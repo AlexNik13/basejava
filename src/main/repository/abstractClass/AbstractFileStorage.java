@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Objects;
 
 public abstract class AbstractFileStorage extends AbstractStorage<File> {
@@ -31,7 +33,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     public void clear() {
         File[] files = directory.listFiles();
         for (File file : files) {
-            if (!file.isDirectory()) {
+            if (file.isFile()) {
                 file.delete();
             }
         }
@@ -39,13 +41,12 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public int size() {
-        int size = 0;
-        for (File file : directory.listFiles()) {
-            if (!file.isDirectory()) {
-                size++;
-            }
+        try {
+            return (int) Files.list(Path.of(directory.getPath())).filter(path -> path.toFile().isFile()).count();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return size;
+        return 0;
     }
 
     @Override
@@ -70,7 +71,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void doSave(Resume r, File file) {
         try {
-            file.createNewFile();
             doWrite(r, file);
         } catch (IOException e) {
             throw new StorageException("IO error", file.getName(), e);
