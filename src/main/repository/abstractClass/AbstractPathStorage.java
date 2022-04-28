@@ -8,12 +8,14 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public abstract class AbstractPathStorage  extends AbstractStorage<Path> {
-    private Path directory;
+public abstract class AbstractPathStorage extends AbstractStorage<Path> {
+    protected Path directory;
 
     protected abstract void doWrite(Resume r, OutputStream os) throws IOException;
 
@@ -29,8 +31,8 @@ public abstract class AbstractPathStorage  extends AbstractStorage<Path> {
 
     @Override
     public void clear() {
-        try {
-            Files.list(directory).forEach(this::doDelete);
+        try (Stream<Path> list = Files.list(directory)) {
+            list.forEach(this::doDelete);
         } catch (IOException e) {
             throw new StorageException("Path delete error", null);
         }
@@ -38,8 +40,8 @@ public abstract class AbstractPathStorage  extends AbstractStorage<Path> {
 
     @Override
     public int size() {
-        try {
-            return Files.list(directory).filter(path -> path.toFile().isFile()).collect(Collectors.toList()).size();
+        try (Stream<Path> listPaths = Files.list(directory)) {
+            return listPaths.filter(path -> path.toFile().isFile()).collect(Collectors.toList()).size();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,9 +70,9 @@ public abstract class AbstractPathStorage  extends AbstractStorage<Path> {
     @Override
     protected void doSave(Resume r, Path path) {
         try {
-           Files.createFile(path);
+            Files.createFile(path);
         } catch (IOException e) {
-            throw new StorageException("Couldn't create Path " +  path.toAbsolutePath().toString(), path.toString(), e);
+            throw new StorageException("Couldn't create Path " + path.toAbsolutePath().toString(), path.toString(), e);
         }
         doUpdate(r, path);
     }
@@ -87,7 +89,7 @@ public abstract class AbstractPathStorage  extends AbstractStorage<Path> {
     @Override
     protected void doDelete(Path path) {
         try {
-            if (!Files.deleteIfExists(path)  ) {
+            if (!Files.deleteIfExists(path)) {
                 throw new StorageException("Path delete error", path.toString());
             }
         } catch (IOException e) {
@@ -95,20 +97,13 @@ public abstract class AbstractPathStorage  extends AbstractStorage<Path> {
         }
     }
 
-
-
-    protected List<Resume> doCopyAll() {
-      /*  Path[] Paths = directory.listPaths();
-        if (Paths == null) {
-            throw new StorageException("Directory read error", null);
+    public List<Resume> doCopyAll() {
+        List<Resume> list = new ArrayList();
+        try (Stream<Path> listPaths = Files.list(directory).filter(path -> path.toFile().isFile())) {
+            listPaths.forEach(path -> list.add(doGet(path)));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        List<Resume> list = new ArrayList<>(Paths.length);
-        for (Path Path : Paths) {
-            list.add(doGet(Path));
-        }*/
-        return null;
+        return list;
     }
-
-
-
 }

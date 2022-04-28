@@ -2,20 +2,16 @@ package test;
 
 import main.exception.NotExistStorageException;
 import main.model.Resume;
-import main.repository.FileStorage;
 import main.repository.ObjectStreamPathStorage;
 import main.repository.abstractClass.Storage;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import test.manual.ResumeTestData;
 
-import java.io.File;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AbstractPathStorageTest {
     private String file = "/home/user/UAPP/3/basejava/storage";
@@ -36,6 +32,11 @@ public class AbstractPathStorageTest {
         storage.save(resume1);
         storage.save(resume2);
         storage.save(resume3);
+    }
+
+    @After
+    public void afterTest(){
+        storage.clear();
     }
 
     @Test
@@ -80,7 +81,6 @@ public class AbstractPathStorageTest {
         assertNotSame(resume, resultResume);
     }
 
-
     @Test
     public void delete() {
         assertThrows(NotExistStorageException.class, () -> {
@@ -99,5 +99,11 @@ public class AbstractPathStorageTest {
         });
         Resume resume = storage.get(UUID_3);
         assertEquals(UUID_3, resume.getUuid());
+    }
+
+    @Test
+    public void doCopyAll() {
+        List<Resume> resumes = ((ObjectStreamPathStorage) storage).doCopyAll();
+        assertEquals(3, resumes.size());
     }
 }

@@ -5,11 +5,12 @@ import main.repository.abstractClass.AbstractPathStorage;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ObjectStreamPathStorage extends AbstractPathStorage {
-
 
     public ObjectStreamPathStorage(String dir) {
         super(dir);
@@ -19,6 +20,7 @@ public class ObjectStreamPathStorage extends AbstractPathStorage {
     protected void doWrite(Resume r, OutputStream os) throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(os);
         oos.writeObject(r);
+        oos.close();
     }
 
     @Override
@@ -29,18 +31,23 @@ public class ObjectStreamPathStorage extends AbstractPathStorage {
             resume = (Resume) ois.readObject();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             ois.close();
         }
-
-
         return resume;
     }
 
 
     @Override
     public List<Resume> getAll() {
-
-        return null;
+        List<Resume> resumes = new ArrayList<>();
+        try (Stream<Path> pathStream = Files.list(directory).filter(path -> path.toFile().isFile())) {
+            pathStream.forEach(
+                    path -> resumes.add(doGet(path))
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return resumes;
     }
 }
