@@ -11,6 +11,7 @@ import main.model.section.Section;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
 import main.repository.ListStorage;
+import main.repository.link.NameLinkRepositoryImpl;
 import main.service.ResumeService;
 import main.service.ResumeServiceImpl;
 
@@ -21,13 +22,13 @@ import java.util.List;
 public class ResumeContentTest {
     public static void main(String[] args) {
 
-        ResumeService resumeService = new ResumeServiceImpl(new ListStorage(), nameLinkRepository);
+        ResumeService resumeService = new ResumeServiceImpl(new ListStorage(), new NameLinkRepositoryImpl());
 
         String uuid = "UnNumb";
 
         Resume resume = new Resume(uuid, "Petro Piatochkin");
 
-        resumeService.save(resume);
+      //  resumeService.save(resume);
 
         resumeService.addContact(uuid, ContactType.PHONE, "+7(921) 855-0482");
         resumeService.addContact(uuid, ContactType.EMAIL, "123qw@adf.asd");
@@ -47,32 +48,34 @@ public class ResumeContentTest {
         EducationPlaceRequestDto educationDto = new EducationPlaceRequestDto(LocalDate.now().minusDays(1),
                 LocalDate.now(), "Siemens AG", "http://www.siemens.ru/", "test Coursera");
 
-        resumeService.addPlaceEducation(uuid, educationDto);
+       /* resumeService.addPlaceEducation(uuid, educationDto);
 
         WorkPlaceRequestDto workDto = new WorkPlaceRequestDto(LocalDate.now().minusDays(1), LocalDate.now(),
                 "Java Online Projects", "http://javaops.ru/", "Test", "test");
 
-        resumeService.addPlaceWork(resume.getUuid(), workDto);
+        resumeService.addPlaceWork(resume.getUuid(), workDto);*/
 
         resumeService.printAll();
     }
 
     private static Section getSectionEducation() {
+/*
         SectionEducation education = new SectionEducation();
         education.addEducationExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Coursera", "https://www.coursera.org/course/progfun", "Functional Programming Principles in Scala' by Martin Odersky");
         education.addEducationExperience(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), "Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366", "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'");
         education.addEducationExperience(LocalDate.now().minusDays(20), LocalDate.now().minusDays(10), "Siemens AG", "http://www.siemens.ru/", "3 месяца обучения мобильным IN сетям (Берлин)");
+*/
 
-        return education;
+        return null;
     }
 
     private static Section getSectionWork() {
-        SectionWork work = new SectionWork();
+       /* SectionWork work = new SectionWork();
         work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Java Online Projects", "http://javaops.ru/", "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок.");
         work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Wrike", "https://www.wrike.com/", "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.");
         work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Alcatel", "http://www.alcatel.ru/", "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM).");
         work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Alcatel", "http://www.alcatel.ru/", "Дубликат ", "Дубликат");
-        return work;
+ */       return null;
     }
 
     private static Section getSectionQualification() {

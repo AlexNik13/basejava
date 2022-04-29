@@ -11,16 +11,15 @@ public class NameLinkRepositoryImpl implements NameLinkRepository {
     private Long size = 0L;
 
     @Override
-    public Long addNameLink(NameLink nameLink){
+    public NameLink save(NameLink nameLink) {
         if (storage.containsValue(nameLink)) {
-            return getKay(nameLink);
+            return storage.get(getKay(nameLink));
         }
-        storage.put(size, nameLink);
-        return size++;
+        return storage.put(size++, nameLink);
     }
 
-    private Long getKay (NameLink nameLink){
-        for (Map.Entry<Long, NameLink> map : storage.entrySet()){
+    private Long getKay(NameLink nameLink) {
+        for (Map.Entry<Long, NameLink> map : storage.entrySet()) {
             if (map.getValue().equals(nameLink)) {
                 return map.getKey();
             }
@@ -29,7 +28,7 @@ public class NameLinkRepositoryImpl implements NameLinkRepository {
     }
 
     @Override
-    public NameLink getName(Long id){
+    public NameLink getNameLink(Long id) {
         return storage.get(id);
     }
 }

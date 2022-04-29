@@ -1,8 +1,6 @@
 package main.service;
 
-import main.dto.EducationPlaceRequestDto;
 import main.dto.ResumeCreateDto;
-import main.dto.WorkPlaceRequestDto;
 import main.model.Resume;
 import main.model.section.Section;
 import main.model.type.ContactType;
@@ -17,7 +15,7 @@ public interface ResumeService {
 
     Resume getResumeByUuid(String uuid);
 
-    void deleteResume(String  uuid);
+    void deleteResume(String uuid);
 
     void printAll();
 
@@ -26,4 +24,8 @@ public interface ResumeService {
     void addContact(String uuid, ContactType contactType, String contact);
 
     void addSection(String uuid, SectionType sectionType, Section section);
+
+    void update(Resume resume);
+
+    void save(Resume resume);
 }

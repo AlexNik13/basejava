@@ -5,11 +5,15 @@ import main.mapper.GsonPrintMapper;
 import main.model.Resume;
 import main.model.section.Contact;
 import main.model.section.Section;
+import main.model.section.experience.Experience;
+import main.model.section.experience.NameLink;
+import main.model.section.experience.SectionEducation;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
 import main.repository.abstractClass.Storage;
 import main.repository.link.NameLinkRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,6 +37,18 @@ public class ResumeServiceImpl implements ResumeService {
         storage.save(resume);
     }
 
+
+    @Override
+    public void update(Resume resume) {
+        storage.update(resume);
+    }
+
+    @Override
+    public void save(Resume resume) {
+        storage.save(resume);
+    }
+
+
     @Override
     public List<Resume> getAllResume() {
         return storage.getAll();
@@ -44,7 +60,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public void deleteResume(String  uuid) {
+    public void deleteResume(String uuid) {
         storage.delete(uuid);
     }
 
@@ -58,19 +74,27 @@ public class ResumeServiceImpl implements ResumeService {
         System.out.println(GsonPrintMapper.toGson(this.getResumeByUuid(uuid)));
     }
 
-
-
     @Override
-    public void addContact(String  uuid, ContactType contactType, String contact) {
+    public void addContact(String uuid, ContactType contactType, String contact) {
         Resume resume = storage.get(uuid);
         resume.addSection(contactType, new Contact(contactType.getTitle(), contact));
         storage.update(resume);
     }
 
     @Override
-    public void addSection(String  uuid, SectionType sectionType, Section section) {
+    public void addSection(String uuid, SectionType sectionType, Section section) {
         Resume resume = storage.get(uuid);
         resume.addSection(sectionType, section);
         storage.update(resume);
     }
+
+
+    public void addEducationToSection(LocalDate startDate, LocalDate finishDate, String name, String link, String position) {
+        //public SectionEducation addEducationToSection(LocalDate startDate, LocalDate finishDate, String position, Long nameLinkId)
+        NameLink nameLink = new NameLink(name, link);
+        nameLink = nameLinkRepository.save(nameLink);
+
+        Experience experience = new Experience(startDate, finishDate, position, nameLink.getId());
+    }
+
 }

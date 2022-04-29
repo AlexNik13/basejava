@@ -4,7 +4,7 @@ import main.model.section.experience.NameLink;
 
 public interface NameLinkRepository {
 
-    Long addNameLink(NameLink nameLink);
+    NameLink save(NameLink nameLink);
 
-    NameLink getName(Long id);
+    NameLink getNameLink(Long id);
 }

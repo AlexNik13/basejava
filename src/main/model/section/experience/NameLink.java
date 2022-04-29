@@ -4,12 +4,21 @@ import java.util.Objects;
 
 public class NameLink {
 
+    private Long id;
     private String name;
     private String link;
 
     public NameLink(String name, String link) {
         this.name = name;
         this.link = link;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
