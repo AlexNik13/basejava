@@ -2,31 +2,19 @@ package main.model.section.experience;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Map;
 
 public class Experience implements Serializable {
 
-    protected LocalDate startDate;
-    protected LocalDate finishDate;
-    protected String description;
-    protected String organizationId;
+    private LocalDate startDate;
+    private LocalDate finishDate;
+    private String position;
+    private Long nameLinkId;
 
-    public Experience(LocalDate startDate, LocalDate finishDate, String description, String organizationId) {
+    public Experience(LocalDate startDate, LocalDate finishDate, String position, Long nameLinkId) {
         this.startDate = startDate;
         this.finishDate = finishDate;
-        this.description = description;
-        this.organizationId = organizationId;
-    }
-
-    protected static String getKey(Map<String, Organization> organizations, Organization organization) {
-
-        for (Map.Entry<String, Organization> o : organizations.entrySet()) {
-            if (o.getValue().equals(organization)) {
-                return o.getKey();
-            }
-
-        }
-        return String.valueOf(organization.hashCode());
+        this.position = position;
+        this.nameLinkId = nameLinkId;
     }
 
     public LocalDate getStartDate() {
@@ -45,11 +33,19 @@ public class Experience implements Serializable {
         this.finishDate = finishDate;
     }
 
-    public String getDescription() {
-        return description;
+    public String getPosition() {
+        return position;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public Long getNameLinkId() {
+        return nameLinkId;
+    }
+
+    public void setNameLinkId(Long nameLinkId) {
+        this.nameLinkId = nameLinkId;
     }
 }

@@ -1,24 +1,23 @@
 package main.model.section.experience;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-public class Organization implements Serializable {
+public class NameLink {
 
-    private String title;
+    private String name;
     private String link;
 
-    public Organization(String title, String link) {
-        this.title = title;
+    public NameLink(String name, String link) {
+        this.name = name;
         this.link = link;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLink() {
@@ -33,12 +32,12 @@ public class Organization implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Organization that = (Organization) o;
-        return Objects.equals(title, that.title) && Objects.equals(link, that.link);
+        NameLink nameLink = (NameLink) o;
+        return Objects.equals(name, nameLink.name) && Objects.equals(link, nameLink.link);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, link);
+        return Objects.hash(name, link);
     }
 }

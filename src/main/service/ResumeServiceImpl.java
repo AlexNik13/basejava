@@ -1,18 +1,14 @@
 package main.service;
 
-import main.dto.EducationPlaceRequestDto;
 import main.dto.ResumeCreateDto;
-import main.dto.WorkPlaceRequestDto;
 import main.mapper.GsonPrintMapper;
-import main.model.MapSection;
 import main.model.Resume;
-import main.model.section.experience.SectionEducation;
-import main.model.section.experience.SectionWork;
 import main.model.section.Contact;
 import main.model.section.Section;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
 import main.repository.abstractClass.Storage;
+import main.repository.link.NameLinkRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,9 +16,11 @@ import java.util.UUID;
 public class ResumeServiceImpl implements ResumeService {
 
     private final Storage storage;
+    private final NameLinkRepository nameLinkRepository;
 
-    public ResumeServiceImpl(Storage storage) {
+    public ResumeServiceImpl(Storage storage, NameLinkRepository nameLinkRepository) {
         this.storage = storage;
+        this.nameLinkRepository = nameLinkRepository;
     }
 
     @Override
@@ -46,8 +44,8 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public void deleteResume(Resume resume) {
-        storage.delete(resume.getUuid());
+    public void deleteResume(String  uuid) {
+        storage.delete(uuid);
     }
 
     @Override
@@ -60,71 +58,19 @@ public class ResumeServiceImpl implements ResumeService {
         System.out.println(GsonPrintMapper.toGson(this.getResumeByUuid(uuid)));
     }
 
+
+
     @Override
-    public void addPlaceEducation(String uuid, EducationPlaceRequestDto dto) {
-        Resume resume = getResumeByUuid(uuid);
-        MapSection<SectionType, Section> sections = resume.getSection();
-        SectionEducation education = (SectionEducation) sections.getSection(SectionType.EDUCATION);
-
-        if (education == null) {
-            education = new SectionEducation();
-        }
-
-        education.addEducationExperience(dto.getStartDate(),
-                dto.getFinishDate(),
-                dto.getTitle(),
-                dto.getLink(),
-                dto.getDescription());
-
-        sections.put(SectionType.EDUCATION, education);
-        resume.setSection(sections);
+    public void addContact(String  uuid, ContactType contactType, String contact) {
+        Resume resume = storage.get(uuid);
+        resume.addSection(contactType, new Contact(contactType.getTitle(), contact));
         storage.update(resume);
     }
 
     @Override
-    public void update(Resume resume) {
+    public void addSection(String  uuid, SectionType sectionType, Section section) {
+        Resume resume = storage.get(uuid);
+        resume.addSection(sectionType, section);
         storage.update(resume);
-    }
-
-    @Override
-    public void addPlaceWork(String uuid, WorkPlaceRequestDto dto) {
-
-        Resume resume = getResumeByUuid(uuid);
-        MapSection<SectionType, Section> sections = resume.getSection();
-        SectionWork works = (SectionWork) sections.getSection(SectionType.EXPERIENCE);
-
-        if (works == null) {
-            works = new SectionWork();
-        }
-
-        works.addWorkExperience(dto.getStartDate(),
-                dto.getFinishDate(),
-                dto.getTitle(),
-                dto.getLink(),
-                dto.getDescription(),
-                dto.getDetail());
-
-        sections.put(SectionType.EXPERIENCE, works);
-        resume.setSection(sections);
-        storage.update(resume);
-    }
-
-    @Override
-    public void save(Resume resume) {
-        storage.save(resume);
-    }
-
-    @Override
-    public void addContact(Resume resume, ContactType contactType, String contact) {
-        Resume r = storage.get(resume.getUuid());
-        r.addSection(contactType, new Contact(contactType.getTitle(), contact));
-        storage.update(r);
-    }
-
-    @Override
-    public void addSection(Resume resume, SectionType sectionType, Section section) {
-        Resume r = storage.get(resume.getUuid());
-        r.addSection(sectionType, section);
-        storage.update(r);
     }
 }

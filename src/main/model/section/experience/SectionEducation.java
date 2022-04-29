@@ -10,13 +10,17 @@ import java.util.Map;
 
 public class SectionEducation implements Section {
 
-    private List<Experience> experienceEducations = new ArrayList<>();
-    private Map<String, Organization> organizations = new HashMap<>();
+    private List<Experience> sectionEducation ;
 
-    public void addEducationExperience(LocalDate startDate, LocalDate finishDate, String title, String link, String description) {
-        Organization organization = new Organization(title, link);
-        String key = Experience.getKey(organizations, organization);
-        organizations.put(key, organization);
-        experienceEducations.add(new Experience(startDate, finishDate, description, key));
+    public SectionEducation(List<Experience> sectionEducation) {
+        this.sectionEducation = sectionEducation;
+    }
+
+    public List<Experience> getSectionEducation() {
+        return sectionEducation;
+    }
+
+    public void setSectionEducation(List<Experience> sectionEducation) {
+        this.sectionEducation = sectionEducation;
     }
 }

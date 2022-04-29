@@ -21,31 +21,33 @@ import java.util.List;
 public class ResumeContentTest {
     public static void main(String[] args) {
 
-        ResumeService resumeService = new ResumeServiceImpl(new ListStorage());
+        ResumeService resumeService = new ResumeServiceImpl(new ListStorage(), nameLinkRepository);
 
-        Resume resume = new Resume("UnNumb", "Petro Piatochkin");
+        String uuid = "UnNumb";
+
+        Resume resume = new Resume(uuid, "Petro Piatochkin");
 
         resumeService.save(resume);
 
-        resumeService.addContact(resume, ContactType.PHONE, "+7(921) 855-0482");
-        resumeService.addContact(resume, ContactType.EMAIL, "123qw@adf.asd");
-        resumeService.addContact(resume, ContactType.SKYPE, "skype:grigory.kislin");
-        resumeService.addContact(resume, ContactType.GITHUB, "https://basejava.herokuapp.com/");
-        resumeService.addContact(resume, ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
-        resumeService.addContact(resume, ContactType.HOMEPAGE, "https://basejava.herokuapp.com/");
+        resumeService.addContact(uuid, ContactType.PHONE, "+7(921) 855-0482");
+        resumeService.addContact(uuid, ContactType.EMAIL, "123qw@adf.asd");
+        resumeService.addContact(uuid, ContactType.SKYPE, "skype:grigory.kislin");
+        resumeService.addContact(uuid, ContactType.GITHUB, "https://basejava.herokuapp.com/");
+        resumeService.addContact(uuid, ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
+        resumeService.addContact(uuid, ContactType.HOMEPAGE, "https://basejava.herokuapp.com/");
 
-        resumeService.addSection(resume, SectionType.ACHIEVEMENT, getSectionAchievement());
-        resumeService.addSection(resume, SectionType.QUALIFICATIONS, getSectionQualification());
-        resumeService.addSection(resume, SectionType.OBJECTIVE, new PositionOrQualities("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
-        resumeService.addSection(resume, SectionType.PERSONAL, new PositionOrQualities("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
+        resumeService.addSection(uuid, SectionType.ACHIEVEMENT, getSectionAchievement());
+        resumeService.addSection(uuid, SectionType.QUALIFICATIONS, getSectionQualification());
+        resumeService.addSection(uuid, SectionType.OBJECTIVE, new PositionOrQualities("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
+        resumeService.addSection(uuid, SectionType.PERSONAL, new PositionOrQualities("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
 
-        resumeService.addSection(resume, SectionType.EXPERIENCE, getSectionWork());
-        resumeService.addSection(resume, SectionType.EDUCATION, getSectionEducation());
+        resumeService.addSection(uuid, SectionType.EXPERIENCE, getSectionWork());
+        resumeService.addSection(uuid, SectionType.EDUCATION, getSectionEducation());
 
         EducationPlaceRequestDto educationDto = new EducationPlaceRequestDto(LocalDate.now().minusDays(1),
                 LocalDate.now(), "Siemens AG", "http://www.siemens.ru/", "test Coursera");
 
-        resumeService.addPlaceEducation(resume.getUuid(), educationDto);
+        resumeService.addPlaceEducation(uuid, educationDto);
 
         WorkPlaceRequestDto workDto = new WorkPlaceRequestDto(LocalDate.now().minusDays(1), LocalDate.now(),
                 "Java Online Projects", "http://javaops.ru/", "Test", "test");

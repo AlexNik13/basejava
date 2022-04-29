@@ -3,18 +3,19 @@ package main.model.section.experience;
 import java.time.LocalDate;
 
 public class ExperienceWork extends Experience {
-    protected String detail;
 
-    public ExperienceWork(LocalDate startDate, LocalDate finishDate, String description, String organizationId, String detail) {
-        super(startDate, finishDate, description, organizationId);
-        this.detail = detail;
+    private String description;
+
+    public ExperienceWork(LocalDate startDate, LocalDate finishDate, String position, Long nameLinkId, String description) {
+        super(startDate, finishDate, position, nameLinkId);
+        this.description = description;
     }
 
-    public String getDetail() {
-        return detail;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

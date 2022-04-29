@@ -17,21 +17,13 @@ public interface ResumeService {
 
     Resume getResumeByUuid(String uuid);
 
-    void deleteResume(Resume resume);
+    void deleteResume(String  uuid);
 
     void printAll();
 
     void printByUuid(String uuid);
 
-    void addPlaceEducation(String uuid, EducationPlaceRequestDto dto);
+    void addContact(String uuid, ContactType contactType, String contact);
 
-    void update(Resume resume);
-
-    void addPlaceWork(String uuid, WorkPlaceRequestDto dto);
-
-    void save(Resume resume);
-
-    void addContact(Resume resume, ContactType contactType, String contact);
-
-    void addSection(Resume resume, SectionType sectionType, Section section);
+    void addSection(String uuid, SectionType sectionType, Section section);
 }
