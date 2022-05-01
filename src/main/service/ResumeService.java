@@ -1,8 +1,6 @@
 package main.service;
 
-import main.dto.EducationPlaceRequestDto;
 import main.dto.ResumeCreateDto;
-import main.dto.WorkPlaceRequestDto;
 import main.model.Resume;
 import main.model.section.Section;
 import main.model.type.ContactType;
@@ -23,15 +21,11 @@ public interface ResumeService {
 
     void printByUuid(String uuid);
 
-    void addPlaceEducation(String uuid, EducationPlaceRequestDto dto);
-
     void update(Resume resume);
-
-    void addPlaceWork(String uuid, WorkPlaceRequestDto dto);
 
     void save(Resume resume);
 
-    void addContact(Resume resume, ContactType contactType, String contact);
+    void addContact(String uuid, ContactType contactType, String contact);
 
-    void addSection(Resume resume, SectionType sectionType, Section section);
+    void addSection(String uuid, SectionType sectionType, Section section);
 }

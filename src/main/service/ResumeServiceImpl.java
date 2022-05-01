@@ -1,15 +1,14 @@
 package main.service;
 
-import main.dto.EducationPlaceRequestDto;
 import main.dto.ResumeCreateDto;
-import main.dto.WorkPlaceRequestDto;
 import main.mapper.GsonPrintMapper;
-import main.model.MapSection;
 import main.model.Resume;
-import main.model.section.experience.SectionEducation;
-import main.model.section.experience.SectionWork;
 import main.model.section.Contact;
 import main.model.section.Section;
+import main.model.section.experience.Experience;
+import main.model.section.experience.ExperienceWork;
+import main.model.section.experience.SectionEducation;
+import main.model.section.experience.SectionWork;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
 import main.repository.abstractClass.Storage;
@@ -61,51 +60,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public void addPlaceEducation(String uuid, EducationPlaceRequestDto dto) {
-        Resume resume = getResumeByUuid(uuid);
-        MapSection<SectionType, Section> sections = resume.getSection();
-        SectionEducation education = (SectionEducation) sections.getSection(SectionType.EDUCATION);
-
-        if (education == null) {
-            education = new SectionEducation();
-        }
-
-        education.addEducationExperience(dto.getStartDate(),
-                dto.getFinishDate(),
-                dto.getTitle(),
-                dto.getLink(),
-                dto.getDescription());
-
-        sections.put(SectionType.EDUCATION, education);
-        resume.setSection(sections);
-        storage.update(resume);
-    }
-
-    @Override
     public void update(Resume resume) {
-        storage.update(resume);
-    }
-
-    @Override
-    public void addPlaceWork(String uuid, WorkPlaceRequestDto dto) {
-
-        Resume resume = getResumeByUuid(uuid);
-        MapSection<SectionType, Section> sections = resume.getSection();
-        SectionWork works = (SectionWork) sections.getSection(SectionType.EXPERIENCE);
-
-        if (works == null) {
-            works = new SectionWork();
-        }
-
-        works.addWorkExperience(dto.getStartDate(),
-                dto.getFinishDate(),
-                dto.getTitle(),
-                dto.getLink(),
-                dto.getDescription(),
-                dto.getDetail());
-
-        sections.put(SectionType.EXPERIENCE, works);
-        resume.setSection(sections);
         storage.update(resume);
     }
 
@@ -115,16 +70,46 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public void addContact(Resume resume, ContactType contactType, String contact) {
-        Resume r = storage.get(resume.getUuid());
-        r.addSection(contactType, new Contact(contactType.getTitle(), contact));
-        storage.update(r);
+    public void addContact(String uuid, ContactType contactType, String contact) {
+        Resume resume = storage.get(uuid);
+        resume.addSection(contactType, new Contact(contactType.getTitle(), contact));
+        storage.update(resume);
     }
 
     @Override
-    public void addSection(Resume resume, SectionType sectionType, Section section) {
-        Resume r = storage.get(resume.getUuid());
-        r.addSection(sectionType, section);
-        storage.update(r);
+    public void addSection(String uuid, SectionType sectionType, Section section) {
+        Resume resume = storage.get(uuid);
+        if (sectionType == SectionType.EDUCATION || sectionType == SectionType.EXPERIENCE) {
+            section = uniqueLink(section);
+        }
+        resume.addSection(sectionType, section);
+        storage.update(resume);
+    }
+
+    private Section uniqueLink(Section section) {
+        if (section instanceof SectionEducation) {
+            List<Experience> experiences = ((SectionEducation) section).getExperienceEducations();
+            System.out.println("Experience");
+            for (int i = 0; i < experiences.size(); i++) {
+                for (int j = i + 1; j < experiences.size(); j++) {
+                    if (experiences.get(i).getLink().equals(experiences.get(j).getLink())) {
+                        experiences.get(j).setLink(experiences.get(i).getLink());
+                    }
+                }
+            }
+            ((SectionEducation) section).setExperienceEducations(experiences);
+        }
+        if (section instanceof SectionWork) {
+            List<ExperienceWork> experiences = ((SectionWork) section).getExperienceWorks();
+            for (int i = 0; i < experiences.size(); i++) {
+                for (int j = i + 1; j < experiences.size(); j++) {
+                    if (experiences.get(i).getLink().equals(experiences.get(j).getLink())) {
+                        experiences.get(j).setLink(experiences.get(i).getLink());
+                    }
+                }
+            }
+            ((SectionWork) section).setExperienceWorks(experiences);
+        }
+        return section;
     }
 }

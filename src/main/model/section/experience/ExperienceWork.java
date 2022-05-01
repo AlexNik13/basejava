@@ -3,10 +3,10 @@ package main.model.section.experience;
 import java.time.LocalDate;
 
 public class ExperienceWork extends Experience {
-    protected String detail;
+    private String detail;
 
-    public ExperienceWork(LocalDate startDate, LocalDate finishDate, String description, String organizationId, String detail) {
-        super(startDate, finishDate, description, organizationId);
+    public ExperienceWork(LocalDate startDate, LocalDate finishDate, Link link, String description, String detail) {
+        super(startDate, finishDate, link, description);
         this.detail = detail;
     }
 

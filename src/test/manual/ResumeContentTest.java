@@ -1,13 +1,10 @@
 package test.manual;
 
-import main.dto.EducationPlaceRequestDto;
-import main.dto.WorkPlaceRequestDto;
 import main.model.Resume;
-import main.model.section.experience.SectionEducation;
-import main.model.section.experience.SectionWork;
 import main.model.section.AchievementOrQualifications;
 import main.model.section.PositionOrQualities;
 import main.model.section.Section;
+import main.model.section.experience.*;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
 import main.repository.ListStorage;
@@ -23,54 +20,50 @@ public class ResumeContentTest {
 
         ResumeService resumeService = new ResumeServiceImpl(new ListStorage());
 
-        Resume resume = new Resume("UnNumb", "Petro Piatochkin");
+        String uuid = "UnNumb";
+
+        Resume resume = new Resume(uuid, "Petro Piatochkin");
+
 
         resumeService.save(resume);
 
-        resumeService.addContact(resume, ContactType.PHONE, "+7(921) 855-0482");
-        resumeService.addContact(resume, ContactType.EMAIL, "123qw@adf.asd");
-        resumeService.addContact(resume, ContactType.SKYPE, "skype:grigory.kislin");
-        resumeService.addContact(resume, ContactType.GITHUB, "https://basejava.herokuapp.com/");
-        resumeService.addContact(resume, ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
-        resumeService.addContact(resume, ContactType.HOMEPAGE, "https://basejava.herokuapp.com/");
+        resumeService.addContact(uuid, ContactType.PHONE, "+7(921) 855-0482");
+        resumeService.addContact(uuid, ContactType.EMAIL, "123qw@adf.asd");
+        resumeService.addContact(uuid, ContactType.SKYPE, "skype:grigory.kislin");
+        resumeService.addContact(uuid, ContactType.GITHUB, "https://basejava.herokuapp.com/");
+        resumeService.addContact(uuid, ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
+        resumeService.addContact(uuid, ContactType.HOMEPAGE, "https://basejava.herokuapp.com/");
 
-        resumeService.addSection(resume, SectionType.ACHIEVEMENT, getSectionAchievement());
-        resumeService.addSection(resume, SectionType.QUALIFICATIONS, getSectionQualification());
-        resumeService.addSection(resume, SectionType.OBJECTIVE, new PositionOrQualities("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
-        resumeService.addSection(resume, SectionType.PERSONAL, new PositionOrQualities("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
+        resumeService.addSection(uuid, SectionType.ACHIEVEMENT, getSectionAchievement());
+        resumeService.addSection(uuid, SectionType.QUALIFICATIONS, getSectionQualification());
+        resumeService.addSection(uuid, SectionType.OBJECTIVE, new PositionOrQualities("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
+        resumeService.addSection(uuid, SectionType.PERSONAL, new PositionOrQualities("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
 
-        resumeService.addSection(resume, SectionType.EXPERIENCE, getSectionWork());
-        resumeService.addSection(resume, SectionType.EDUCATION, getSectionEducation());
+        resumeService.addSection(uuid, SectionType.EXPERIENCE, getSectionWork());
+        resumeService.addSection(uuid, SectionType.EDUCATION, getSectionEducation());
 
-        EducationPlaceRequestDto educationDto = new EducationPlaceRequestDto(LocalDate.now().minusDays(1),
-                LocalDate.now(), "Siemens AG", "http://www.siemens.ru/", "test Coursera");
-
-        resumeService.addPlaceEducation(resume.getUuid(), educationDto);
-
-        WorkPlaceRequestDto workDto = new WorkPlaceRequestDto(LocalDate.now().minusDays(1), LocalDate.now(),
-                "Java Online Projects", "http://javaops.ru/", "Test", "test");
-
-        resumeService.addPlaceWork(resume.getUuid(), workDto);
 
         resumeService.printAll();
     }
 
     private static Section getSectionEducation() {
-        SectionEducation education = new SectionEducation();
-        education.addEducationExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Coursera", "https://www.coursera.org/course/progfun", "Functional Programming Principles in Scala' by Martin Odersky");
-        education.addEducationExperience(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), "Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366", "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'");
-        education.addEducationExperience(LocalDate.now().minusDays(20), LocalDate.now().minusDays(10), "Siemens AG", "http://www.siemens.ru/", "3 месяца обучения мобильным IN сетям (Берлин)");
-
-        return education;
+        List<Experience> experiences = new ArrayList<>();
+        experiences.add(new Experience(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Coursera", "https://www.coursera.org/course/progfun"), "Functional Programming Principles in Scala' by Martin Odersky"));
+        experiences.add(new Experience(LocalDate.now().minusDays(30), LocalDate.now().minusDays(25), new Link("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'"));
+        experiences.add(new Experience(LocalDate.now().minusDays(20), LocalDate.now().minusDays(15), new Link("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс Java STart"));
+        experiences.add(new Experience(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), new Link("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс Spring"));
+        return new SectionEducation(experiences);
     }
 
     private static Section getSectionWork() {
-        SectionWork work = new SectionWork();
-        work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Java Online Projects", "http://javaops.ru/", "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок.");
-        work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Wrike", "https://www.wrike.com/", "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.");
-        work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Alcatel", "http://www.alcatel.ru/", "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM).");
-        work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Alcatel", "http://www.alcatel.ru/", "Дубликат ", "Дубликат");
-        return work;
+
+        List<ExperienceWork> experienceWorks = new ArrayList<>();
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Java Online Projects", "http://javaops.ru/"), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок."));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Wrike", "https://www.wrike.com/"), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Alcatel", "http://www.alcatel.ru/"), "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Alcatel", "http://www.alcatel.ru/"), "Дубликат ", "Дубликат"));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Alcatel", "http://www.alcatel.ru/"), "Дубликат2 ", "Дубликат2"));
+        return new SectionWork(experienceWorks);
     }
 
     private static Section getSectionQualification() {
