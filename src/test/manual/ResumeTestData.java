@@ -4,8 +4,7 @@ import main.model.Resume;
 import main.model.section.AchievementOrQualifications;
 import main.model.section.Contact;
 import main.model.section.PositionOrQualities;
-import main.model.section.experience.SectionEducation;
-import main.model.section.experience.SectionWork;
+import main.model.section.experience.*;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
 
@@ -14,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResumeTestData {
+
+    private ResumeTestData() {
+    }
 
     public static Resume getResume(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
@@ -33,9 +35,7 @@ public class ResumeTestData {
         achievements.add("Налаживание процесса разработки и непрерывной интеграции ERP системы River BPM. Интеграция с 1С, Bonita BPM, CMIS, LDAP. Разработка приложения управления окружением на стеке: Scala/Play/Anorm/JQuery. Разработка SSO аутентификации и авторизации различных ERP модулей, интеграция CIFS/SMB java сервера.");
         achievements.add("Реализация двухфакторной аутентификации для онлайн платформы управления проектами Wrike. Интеграция с Twilio, DuoSecurity, Google Authenticator, Jira, Zendesk.");
         achievements.add("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 3500 выпускников.");
-
         AchievementOrQualifications achievement = new AchievementOrQualifications(SectionType.ACHIEVEMENT.getTitle(), achievements);
-
         resume.addSection(SectionType.ACHIEVEMENT, achievement);
 
         List<String> qualifications = new ArrayList<>();
@@ -53,34 +53,29 @@ public class ResumeTestData {
         qualifications.add("администрирование Hudson/Jenkins, Ant + custom task, SoapUI, JPublisher, Flyway, Nagios, iReport, OpenCmis, Bonita, pgBouncer");
         qualifications.add("Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования");
         qualifications.add("Родной русский, английский \"upper intermediate\"");
-
         AchievementOrQualifications qualification = new AchievementOrQualifications(SectionType.QUALIFICATIONS.getTitle(), qualifications);
-
         resume.addSection(SectionType.QUALIFICATIONS, qualification);
 
         PositionOrQualities qualities = new PositionOrQualities("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
-
         resume.addSection(SectionType.QUALIFICATIONS, qualities);
 
         PositionOrQualities position = new PositionOrQualities("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
+        resume.addSection(SectionType.PERSONAL, position);
 
-        resume.addSection(SectionType.PERSONAL, qualities);
+        List<Experience> experiences = new ArrayList<>();
+        experiences.add(new Experience(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Coursera", "https://www.coursera.org/course/progfun"), "Functional Programming Principles in Scala' by Martin Odersky"));
+        experiences.add(new Experience(LocalDate.now().minusDays(30), LocalDate.now().minusDays(25), new Link("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'"));
+        experiences.add(new Experience(LocalDate.now().minusDays(20), LocalDate.now().minusDays(15), new Link("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс Java STart"));
+        experiences.add(new Experience(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), new Link("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс Spring"));
+        resume.addSection(SectionType.EDUCATION, new SectionEducation(experiences));
 
-        SectionEducation education = new SectionEducation();
-        education.addEducationExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Coursera", "https://www.coursera.org/course/progfun", "Functional Programming Principles in Scala' by Martin Odersky");
-        education.addEducationExperience(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), "Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366", "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'");
-        education.addEducationExperience(LocalDate.now().minusDays(20), LocalDate.now().minusDays(10), "Siemens AG", "http://www.siemens.ru/", "3 месяца обучения мобильным IN сетям (Берлин)");
-
-        resume.addSection(SectionType.EDUCATION, education);
-
-        SectionWork work = new SectionWork();
-        work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Java Online Projects", "http://javaops.ru/", "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок.");
-        work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Alcatel", "http://www.alcatel.ru/", "Дубликат ", "Дубликат");
-        work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Wrike", "https://www.wrike.com/", "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.");
-        work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Alcatel", "http://www.alcatel.ru/", "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM).");
-        work.addWorkExperience(LocalDate.now().minusDays(1), LocalDate.now(), "Alcatel", "http://www.alcatel.ru/", "Дубликат ", "Дубликат");
-
-        resume.addSection(SectionType.EXPERIENCE, work);
+        List<ExperienceWork> experienceWorks = new ArrayList<>();
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Java Online Projects", "http://javaops.ru/"), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок."));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Wrike", "https://www.wrike.com/"), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Alcatel", "http://www.alcatel.ru/"), "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Alcatel", "http://www.alcatel.ru/"), "Дубликат ", "Дубликат"));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Alcatel", "http://www.alcatel.ru/"), "Дубликат2 ", "Дубликат2"));
+        resume.addSection(SectionType.EXPERIENCE, new SectionWork(experienceWorks));
 
         return resume;
     }
