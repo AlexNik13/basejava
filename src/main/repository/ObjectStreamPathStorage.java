@@ -37,7 +37,6 @@ public class ObjectStreamPathStorage extends AbstractPathStorage {
         return resume;
     }
 
-
     @Override
     public List<Resume> getAll() {
         List<Resume> resumes = new ArrayList<>();

@@ -11,13 +11,15 @@ import java.util.List;
 import java.util.Set;
 
 public interface ResumeService {
+    void clear();
+
     void createResume(ResumeCreateDto dto);
 
     List<Resume> getAllResume();
 
     Resume getResumeByUuid(String uuid);
 
-    void deleteResume(Resume resume);
+    void deleteResume(String uuid);
 
     void printAll();
 

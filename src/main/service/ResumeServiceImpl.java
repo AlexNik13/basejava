@@ -26,6 +26,11 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
+    public void clear() {
+        storageLink.clear();
+    }
+
+    @Override
     public void createResume(ResumeCreateDto dto) {
         Resume resume = new Resume();
         resume.setUuid(UUID.randomUUID().toString());
@@ -51,8 +56,8 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public void deleteResume(Resume resume) {
-        storage.delete(resume.getUuid());
+    public void deleteResume(String uuid) {
+        storage.delete(uuid);
     }
 
     @Override
