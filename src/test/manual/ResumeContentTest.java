@@ -1,5 +1,6 @@
 package test.manual;
 
+import main.model.MapSection;
 import main.model.Resume;
 import main.model.section.AchievementOrQualifications;
 import main.model.section.PositionOrQualities;
@@ -7,25 +8,35 @@ import main.model.section.Section;
 import main.model.section.experience.*;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
+import main.repository.FileStorage;
 import main.repository.ListStorage;
 import main.service.ResumeService;
 import main.service.ResumeServiceImpl;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ResumeContentTest {
     public static void main(String[] args) {
 
         ResumeService resumeService = new ResumeServiceImpl(new ListStorage());
 
+      //  ResumeService resumeService =new ResumeServiceImpl(new FileStorage(new File("/home/user/UAPP/3/basejava/storage")));
+
+
+
+
+
         String uuid = "UnNumb";
+        String uuidTwo = "UnNumbTwo";
 
         Resume resume = new Resume(uuid, "Petro Piatochkin");
 
 
-        resumeService.save(resume);
+       resumeService.save(resume);
 
         resumeService.addContact(uuid, ContactType.PHONE, "+7(921) 855-0482");
         resumeService.addContact(uuid, ContactType.EMAIL, "123qw@adf.asd");
@@ -42,8 +53,35 @@ public class ResumeContentTest {
         resumeService.addSection(uuid, SectionType.EXPERIENCE, getSectionWork());
         resumeService.addSection(uuid, SectionType.EDUCATION, getSectionEducation());
 
+        Set<Link> storageLink = resumeService.getStorageLink();
+        System.out.println("===========");
+        storageLink.forEach(link -> System.out.println(link));
 
-        resumeService.printAll();
+
+        Resume resumeTwo = ResumeTestData.getResume("uuidTwo", "Second");
+        resumeService.save(resumeTwo);
+
+
+        storageLink = resumeService.getStorageLink();
+        storageLink.forEach(link -> System.out.println(link.hashCode()));
+
+
+     /*   resumeService.save(resume);
+
+        resume = resumeService.getResumeByUuid(uuid);
+
+        MapSection<SectionType, Section> section = resume.getSection();
+
+        SectionEducation education = (SectionEducation) section.getSection(SectionType.EDUCATION);
+
+        List<Experience> experienceEducations = education.getExperienceEducations();
+
+        experienceEducations.forEach(
+                experience -> {
+                    System.out.println(experience.getLink().hashCode());
+                }
+        );*/
+
     }
 
     private static Section getSectionEducation() {
