@@ -1,6 +1,5 @@
 package test.manual;
 
-import main.model.MapSection;
 import main.model.Resume;
 import main.model.section.AchievementOrQualifications;
 import main.model.section.PositionOrQualities;
@@ -8,26 +7,20 @@ import main.model.section.Section;
 import main.model.section.experience.*;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
-import main.repository.FileStorage;
 import main.repository.ListStorage;
 import main.service.ResumeService;
 import main.service.ResumeServiceImpl;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class ResumeContentTest {
     public static void main(String[] args) {
 
         ResumeService resumeService = new ResumeServiceImpl(new ListStorage());
 
-      //  ResumeService resumeService =new ResumeServiceImpl(new FileStorage(new File("/home/user/UAPP/3/basejava/storage")));
-
-
-
+        //  ResumeService resumeService =new ResumeServiceImpl(new FileStorage(new File("/home/user/UAPP/3/basejava/storage")));
 
 
         String uuid = "UnNumb";
@@ -35,8 +28,7 @@ public class ResumeContentTest {
 
         Resume resume = new Resume(uuid, "Petro Piatochkin");
 
-
-       resumeService.save(resume);
+        resumeService.save(resume);
 
         resumeService.addContact(uuid, ContactType.PHONE, "+7(921) 855-0482");
         resumeService.addContact(uuid, ContactType.EMAIL, "123qw@adf.asd");
@@ -53,16 +45,14 @@ public class ResumeContentTest {
         resumeService.addSection(uuid, SectionType.EXPERIENCE, getSectionWork());
         resumeService.addSection(uuid, SectionType.EDUCATION, getSectionEducation());
 
-        Set<Link> storageLink = resumeService.getStorageLink();
+        List<Organization> storageLink = resumeService.getStorageOrganization();
         System.out.println("===========");
         storageLink.forEach(link -> System.out.println(link));
 
-
-        Resume resumeTwo = ResumeTestData.getResume("uuidTwo", "Second");
+        Resume resumeTwo = ResumeTestData.getResume(uuidTwo, "Second");
         resumeService.save(resumeTwo);
 
-
-        storageLink = resumeService.getStorageLink();
+        storageLink = resumeService.getStorageOrganization();
         storageLink.forEach(link -> System.out.println(link.hashCode()));
 
 
@@ -86,21 +76,21 @@ public class ResumeContentTest {
 
     private static Section getSectionEducation() {
         List<Experience> experiences = new ArrayList<>();
-        experiences.add(new Experience(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Coursera", "https://www.coursera.org/course/progfun"), "Functional Programming Principles in Scala' by Martin Odersky"));
-        experiences.add(new Experience(LocalDate.now().minusDays(30), LocalDate.now().minusDays(25), new Link("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'"));
-        experiences.add(new Experience(LocalDate.now().minusDays(20), LocalDate.now().minusDays(15), new Link("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс Java STart"));
-        experiences.add(new Experience(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), new Link("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс Spring"));
+        experiences.add(new Experience(LocalDate.now().minusDays(1), LocalDate.now(), new Organization("Coursera", "https://www.coursera.org/course/progfun"), "Functional Programming Principles in Scala' by Martin Odersky"));
+        experiences.add(new Experience(LocalDate.now().minusDays(30), LocalDate.now().minusDays(25), new Organization("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'"));
+        experiences.add(new Experience(LocalDate.now().minusDays(20), LocalDate.now().minusDays(15), new Organization("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс Java STart"));
+        experiences.add(new Experience(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), new Organization("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс Spring"));
         return new SectionEducation(experiences);
     }
 
     private static Section getSectionWork() {
 
         List<ExperienceWork> experienceWorks = new ArrayList<>();
-        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Java Online Projects", "http://javaops.ru/"), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок."));
-        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Wrike", "https://www.wrike.com/"), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
-        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Alcatel", "http://www.alcatel.ru/"), "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."));
-        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Alcatel", "http://www.alcatel.ru/"), "Дубликат ", "Дубликат"));
-        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Alcatel", "http://www.alcatel.ru/"), "Дубликат2 ", "Дубликат2"));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Organization("Java Online Projects", "http://javaops.ru/"), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок."));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Organization("Wrike", "https://www.wrike.com/"), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Organization("Alcatel", "http://www.alcatel.ru/"), "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Organization("Alcatel", "http://www.alcatel.ru/"), "Дубликат ", "Дубликат"));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Organization("Alcatel", "http://www.alcatel.ru/"), "Дубликат2 ", "Дубликат2"));
         return new SectionWork(experienceWorks);
     }
 

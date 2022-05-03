@@ -6,20 +6,22 @@ import main.model.MapSection;
 import main.model.Resume;
 import main.model.section.Contact;
 import main.model.section.Section;
-import main.model.section.experience.*;
+import main.model.section.experience.Experience;
+import main.model.section.experience.Organization;
+import main.model.section.experience.SectionEducation;
+import main.model.section.experience.SectionWork;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
 import main.repository.abstractClass.Storage;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public class ResumeServiceImpl implements ResumeService {
 
     private final Storage storage;
-    private Set<Link> storageLink = new HashSet<>();
+    private List<Organization> storageOrganization = new ArrayList<>();
 
     public ResumeServiceImpl(Storage storage) {
         this.storage = storage;
@@ -27,7 +29,7 @@ public class ResumeServiceImpl implements ResumeService {
 
     @Override
     public void clear() {
-        storageLink.clear();
+        storageOrganization.clear();
     }
 
     @Override
@@ -41,8 +43,8 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public Set<Link> getStorageLink() {
-        return storageLink;
+    public List<Organization> getStorageOrganization() {
+        return storageOrganization;
     }
 
     @Override
@@ -82,33 +84,28 @@ public class ResumeServiceImpl implements ResumeService {
 
     private Resume uniqueStorageLink(Resume resume) {
         MapSection<SectionType, Section> section = resume.getSection();
-        SectionEducation sectionEducation = (SectionEducation) uniqueSectionLink(section.getSection(SectionType.EDUCATION)) ;
+        SectionEducation sectionEducation = (SectionEducation) section.getSection(SectionType.EDUCATION);
         if (sectionEducation != null) {
-            List<Experience> experienceEducations = uniqueStorageLink( sectionEducation.getExperienceEducations());
-            sectionEducation.setExperienceEducations(experienceEducations);
+            uniqueStorageLink(sectionEducation.getExperienceEducations());
             section.put(SectionType.EDUCATION, sectionEducation);
         }
-
-        SectionWork sectionWork = (SectionWork) uniqueSectionLink(section.getSection(SectionType.EXPERIENCE)) ;
+        SectionWork sectionWork = (SectionWork) section.getSection(SectionType.EXPERIENCE);
         if (sectionWork != null) {
-            List<ExperienceWork> experiences = uniqueStorageLink( sectionWork.getExperienceWorks());
-            sectionWork.setExperienceWorks(experiences);
+            uniqueStorageLink(sectionWork.getExperienceWorks());
             section.put(SectionType.EXPERIENCE, sectionWork);
         }
         resume.setSection(section);
         return resume;
     }
 
-    private <T extends Experience> List<T> uniqueStorageLink(List<T> listLinks){
-        storageLink.forEach(link -> {
-            listLinks.forEach(experience -> {
-                if (link.equals(experience.getLink())) {
-                    experience.setLink(link);
-                }
-            });
+    private <T extends Experience> void uniqueStorageLink(List<T> organizations) {
+        organizations.forEach(organization -> {
+            if (storageOrganization.contains(organization.getLink())) {
+                organization.setLink(storageOrganization.get(storageOrganization.indexOf(organization.getLink())));
+            } else {
+                storageOrganization.add(organization.getLink());
+            }
         });
-        listLinks.forEach(experience -> storageLink.add(experience.getLink()));
-        return listLinks;
     }
 
     @Override
@@ -121,33 +118,7 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     public void addSection(String uuid, SectionType sectionType, Section section) {
         Resume resume = storage.get(uuid);
-        if (sectionType == SectionType.EDUCATION || sectionType == SectionType.EXPERIENCE) {
-            section = uniqueSectionLink(section);
-        }
         resume.addSection(sectionType, section);
         storage.update(resume);
-    }
-
-    private Section uniqueSectionLink(Section section) {
-        if (section instanceof SectionEducation) {
-            List<Experience> experiences = ((SectionEducation) section).getExperienceEducations();
-            ((SectionEducation) section).setExperienceEducations(uniqueLink(experiences));
-        }
-        if (section instanceof SectionWork) {
-            List<ExperienceWork> experiences = ((SectionWork) section).getExperienceWorks();
-            ((SectionWork) section).setExperienceWorks(uniqueLink(experiences));
-        }
-        return section;
-    }
-
-    private <T extends Experience> List<T> uniqueLink(List<T> listLink){
-        for (int i = 0; i < listLink.size(); i++) {
-            for (int j = i + 1; j < listLink.size(); j++) {
-                if (listLink.get(i).getLink().equals(listLink.get(j).getLink())) {
-                    listLink.get(j).setLink(listLink.get(i).getLink());
-                }
-            }
-        }
-        return listLink;
     }
 }

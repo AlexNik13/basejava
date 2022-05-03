@@ -3,7 +3,7 @@ package main.pattern;
 import main.dto.ResumeCreateDto;
 import main.model.Resume;
 import main.model.section.Section;
-import main.model.section.experience.Link;
+import main.model.section.experience.Organization;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
 import main.repository.FileStorage;
@@ -13,7 +13,6 @@ import main.service.ResumeServiceImpl;
 
 import java.io.File;
 import java.util.List;
-import java.util.Set;
 
 public class DecoratorImpl implements Decorator {
 
@@ -91,7 +90,7 @@ public class DecoratorImpl implements Decorator {
     }
 
     @Override
-    public Set<Link> getStorageLink() {
-        return resumeService.getStorageLink();
+    public List<Organization> getStorageOrganization() {
+        return resumeService.getStorageOrganization();
     }
 }
