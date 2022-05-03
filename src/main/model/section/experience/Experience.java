@@ -7,10 +7,10 @@ public class Experience implements Serializable {
 
     private LocalDate startDate;
     private LocalDate finishDate;
-    private Link link;
+    private Organization link;
     private String description;
 
-    public Experience(LocalDate startDate, LocalDate finishDate, Link link, String description) {
+    public Experience(LocalDate startDate, LocalDate finishDate, Organization link, String description) {
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.link = link;
@@ -41,11 +41,11 @@ public class Experience implements Serializable {
         this.description = description;
     }
 
-    public Link getLink() {
+    public Organization getLink() {
         return link;
     }
 
-    public void setLink(Link link) {
+    public void setLink(Organization link) {
         this.link = link;
     }
 }

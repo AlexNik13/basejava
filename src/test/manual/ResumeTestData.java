@@ -63,18 +63,18 @@ public class ResumeTestData {
         resume.addSection(SectionType.PERSONAL, position);
 
         List<Experience> experiences = new ArrayList<>();
-        experiences.add(new Experience(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Coursera", "https://www.coursera.org/course/progfun"), "Functional Programming Principles in Scala' by Martin Odersky"));
-        experiences.add(new Experience(LocalDate.now().minusDays(30), LocalDate.now().minusDays(25), new Link("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'"));
-        experiences.add(new Experience(LocalDate.now().minusDays(20), LocalDate.now().minusDays(15), new Link("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс Java STart"));
-        experiences.add(new Experience(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), new Link("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс Spring"));
+        experiences.add(new Experience(LocalDate.now().minusDays(1), LocalDate.now(), new Organization("Coursera", "https://www.coursera.org/course/progfun"), "Functional Programming Principles in Scala' by Martin Odersky"));
+        experiences.add(new Experience(LocalDate.now().minusDays(30), LocalDate.now().minusDays(25), new Organization("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'"));
+        experiences.add(new Experience(LocalDate.now().minusDays(20), LocalDate.now().minusDays(15), new Organization("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс Java STart"));
+        experiences.add(new Experience(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), new Organization("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"), "Курс Spring"));
         resume.addSection(SectionType.EDUCATION, new SectionEducation(experiences));
 
         List<ExperienceWork> experienceWorks = new ArrayList<>();
-        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Java Online Projects", "http://javaops.ru/"), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок."));
-        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Wrike", "https://www.wrike.com/"), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
-        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Alcatel", "http://www.alcatel.ru/"), "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."));
-        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Alcatel", "http://www.alcatel.ru/"), "Дубликат ", "Дубликат"));
-        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Link("Alcatel", "http://www.alcatel.ru/"), "Дубликат2 ", "Дубликат2"));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Organization("Java Online Projects", "http://javaops.ru/"), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок."));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Organization("Wrike", "https://www.wrike.com/"), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Organization("Alcatel", "http://www.alcatel.ru/"), "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Organization("Alcatel", "http://www.alcatel.ru/"), "Дубликат ", "Дубликат"));
+        experienceWorks.add(new ExperienceWork(LocalDate.now().minusDays(1), LocalDate.now(), new Organization("Alcatel", "http://www.alcatel.ru/"), "Дубликат2 ", "Дубликат2"));
         resume.addSection(SectionType.EXPERIENCE, new SectionWork(experienceWorks));
 
         return resume;
