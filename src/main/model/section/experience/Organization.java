@@ -28,4 +28,9 @@ public class Organization implements Serializable {
         Organization that = (Organization) o;
         return Objects.equals(title, that.title) && Objects.equals(link, that.link);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, link);
+    }
 }

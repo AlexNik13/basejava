@@ -14,14 +14,15 @@ import main.model.type.ContactType;
 import main.model.type.SectionType;
 import main.repository.abstractClass.Storage;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class ResumeServiceImpl implements ResumeService {
 
     private final Storage storage;
-    private List<Organization> storageOrganization = new ArrayList<>();
+    private Map<Integer, Organization> storageOrganization = new HashMap();
 
     public ResumeServiceImpl(Storage storage) {
         this.storage = storage;
@@ -43,7 +44,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public List<Organization> getStorageOrganization() {
+    public Map<Integer, Organization> getStorageOrganization() {
         return storageOrganization;
     }
 
@@ -86,29 +87,30 @@ public class ResumeServiceImpl implements ResumeService {
         MapSection<SectionType, Section> section = resume.getSection();
         SectionEducation sectionEducation = (SectionEducation) section.getSection(SectionType.EDUCATION);
         if (sectionEducation != null) {
-            List<Experience> experiences = uniqueStorageLink(sectionEducation.getExperienceEducations());
-            sectionEducation.setExperienceEducations(experiences);
+            uniqueStorageLink(sectionEducation.getExperienceEducations());
             section.put(SectionType.EDUCATION, sectionEducation);
         }
         SectionWork sectionWork = (SectionWork) section.getSection(SectionType.EXPERIENCE);
         if (sectionWork != null) {
             uniqueStorageLink(sectionWork.getExperienceWorks());
-            sectionWork.setExperienceWorks(sectionWork.getExperienceWorks());
             section.put(SectionType.EXPERIENCE, sectionWork);
         }
         resume.setSection(section);
         return resume;
     }
 
-    private <T extends Experience> List<T> uniqueStorageLink(List<T> organizations) {
+    private <T extends Experience> void uniqueStorageLink(List<T> organizations) {
         organizations.forEach(organization -> {
-            if (storageOrganization.contains(organization.getLink())) {
-                organization.setLink(storageOrganization.get(storageOrganization.indexOf(organization.getLink())));
+            if (storageOrganization.containsValue(organization.getLink())) {
+                for (Map.Entry<Integer, Organization> organizationEntry : storageOrganization.entrySet()) {
+                    if (organizationEntry.getValue().equals(organization.getLink())) {
+                        organization.setLink(organizationEntry.getValue());
+                    }
+                }
             } else {
-                storageOrganization.add(organization.getLink());
+                storageOrganization.put(organization.hashCode(), organization.getLink());
             }
         });
-        return organizations;
     }
 
     @Override

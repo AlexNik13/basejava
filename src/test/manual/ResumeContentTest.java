@@ -14,6 +14,7 @@ import main.service.ResumeServiceImpl;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ResumeContentTest {
     public static void main(String[] args) {
@@ -45,15 +46,15 @@ public class ResumeContentTest {
         resumeService.addSection(uuid, SectionType.EXPERIENCE, getSectionWork());
         resumeService.addSection(uuid, SectionType.EDUCATION, getSectionEducation());
 
-        List<Organization> storageLink = resumeService.getStorageOrganization();
+        Map<Integer, Organization> storageLink = resumeService.getStorageOrganization();
+        storageLink.forEach((integer, organization) -> System.out.println(organization.hashCode()));
         System.out.println("===========");
-        storageLink.forEach(link -> System.out.println(link));
 
         Resume resumeTwo = ResumeTestData.getResume(uuidTwo, "Second");
         resumeService.save(resumeTwo);
 
         storageLink = resumeService.getStorageOrganization();
-        storageLink.forEach(link -> System.out.println(link.hashCode()));
+        storageLink.forEach((integer, organization) -> System.out.println(organization.hashCode()));
 
 
      /*   resumeService.save(resume);

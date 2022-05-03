@@ -8,6 +8,7 @@ import main.model.type.ContactType;
 import main.model.type.SectionType;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ResumeService {
     void clear();
@@ -32,5 +33,5 @@ public interface ResumeService {
 
     void addSection(String uuid, SectionType sectionType, Section section);
 
-    List<Organization> getStorageOrganization();
+    Map<Integer, Organization> getStorageOrganization();
 }

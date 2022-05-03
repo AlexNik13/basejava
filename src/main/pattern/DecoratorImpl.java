@@ -13,6 +13,7 @@ import main.service.ResumeServiceImpl;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 public class DecoratorImpl implements Decorator {
 
@@ -90,7 +91,7 @@ public class DecoratorImpl implements Decorator {
     }
 
     @Override
-    public List<Organization> getStorageOrganization() {
+    public Map<Integer, Organization> getStorageOrganization() {
         return resumeService.getStorageOrganization();
     }
 }
