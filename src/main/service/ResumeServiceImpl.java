@@ -105,6 +105,7 @@ public class ResumeServiceImpl implements ResumeService {
                 for (Map.Entry<Integer, Organization> organizationEntry : storageOrganization.entrySet()) {
                     if (organizationEntry.getValue().equals(organization.getLink())) {
                         organization.setLink(organizationEntry.getValue());
+                        break;
                     }
                 }
             } else {
