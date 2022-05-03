@@ -12,6 +12,8 @@ import main.model.section.experience.SectionEducation;
 import main.model.section.experience.SectionWork;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
+import main.repository.FileStorage;
+import main.repository.ObjectStreamPathStorage;
 import main.repository.abstractClass.Storage;
 
 import java.util.ArrayList;
@@ -20,11 +22,18 @@ import java.util.UUID;
 
 public class ResumeServiceImpl implements ResumeService {
 
-    private final Storage storage;
+    private Storage storage;
     private List<Organization> storageOrganization = new ArrayList<>();
 
     public ResumeServiceImpl(Storage storage) {
         this.storage = storage;
+    }
+
+    @Override
+    public void setStrategy(Storage strategy) {
+        if (strategy instanceof ObjectStreamPathStorage || strategy instanceof FileStorage) {
+            this.storage = strategy;
+        }
     }
 
     @Override

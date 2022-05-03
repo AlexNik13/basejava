@@ -6,6 +6,7 @@ import main.model.section.Section;
 import main.model.section.experience.Organization;
 import main.model.type.ContactType;
 import main.model.type.SectionType;
+import main.repository.abstractClass.Storage;
 
 import java.util.List;
 
@@ -33,4 +34,6 @@ public interface ResumeService {
     void addSection(String uuid, SectionType sectionType, Section section);
 
     List<Organization> getStorageOrganization();
+
+    void setStrategy(Storage strategy);
 }
